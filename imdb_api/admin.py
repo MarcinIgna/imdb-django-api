@@ -1,3 +1,5 @@
 from django.contrib import admin
+from imdb_api.models.user_model import CustomUser
 
-# Register your models here.
+admin.site.register(CustomUser)
+
