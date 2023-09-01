@@ -1,7 +1,7 @@
 from django import forms
 
 
-class UserFromLogin(forms.Form):
+class UserFormLogin(forms.Form):
     username = forms.CharField(       
         label="Username",
         widget=forms.TextInput(

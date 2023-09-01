@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from imdb_api.forms.login_form import UserFromLogin
+from imdb_api.forms.login_form import UserFormLogin
 
 
 def login_view(request):
     if request.method == 'POST':
-        form = UserFromLogin(request.POST)
+        form = UserFormLogin(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -18,9 +18,9 @@ def login_view(request):
                     return redirect('admin:index') # admin:index is the admin dashboard 
                 else:
                     messages.success(request, 'You have been logged in successfully.')
-                    return redirect('home')# user home page
+                    return redirect('imdb:frontpage')# user home page
             else:
                 messages.error(request, 'Invalid username or password.')
     else:
-        form = UserFromLogin()
-    return render(request, 'login.html', {'form': form})
+        form = UserFormLogin()
+    return render(request, 'core/login.html', {'form': form})
