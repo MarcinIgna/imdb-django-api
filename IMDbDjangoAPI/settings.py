@@ -160,3 +160,6 @@ if USE_S3_SETUP:
 else:
     STATIC_URL = "static/"
     STATIC_ROOT = "collections/static_collections"
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "imdb_api/static"),
+]
