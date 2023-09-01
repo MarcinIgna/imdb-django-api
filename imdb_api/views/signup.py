@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from imdb_api.forms import SignUpForm
+from imdb_api.forms.login_form import SignUpForm
 from django.contrib.auth import login
 
 def signup(request):
