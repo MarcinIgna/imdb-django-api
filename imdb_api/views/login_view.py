@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from imdb_api.forms.login_form import UserFormLogin
 
+
 def login_view(request):
     if request.method == 'POST':
         form = UserFormLogin(request.POST)
@@ -14,7 +15,7 @@ def login_view(request):
                 login(request, user)
                 if user.is_staff:
                     messages.success(request, 'You have been logged in as staff.')
-                    return redirect('admin:index') # admin:index is the admin dashboard
+                    return redirect('admin:index') # admin:index is the admin dashboard 
                 else:
                     messages.success(request, 'You have been logged in successfully.')
                     return redirect('imdb:frontpage')# user home page

@@ -1,5 +1,4 @@
 from django import forms
-from imdb_api.models.user_model import CustomUser
 
 
 class UserFormLogin(forms.Form):
