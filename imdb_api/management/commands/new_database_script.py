@@ -38,3 +38,16 @@ class Command(BaseCommand):
             )
 
         self.stdout.write(self.style.SUCCESS('Successfully fetched and stored top-rated movies.'))
+
+top_rated_movies = Movie.objects.all()
+
+# Print the list of top-rated movies
+for movie in top_rated_movies:
+    print(f"Title: {movie.title}")
+    print(f"Overview: {movie.overview}")
+    print(f"Release Date: {movie.release_date}")
+    print(f"Vote Average: {movie.vote_average}")
+    print(f"Popularity: {movie.popularity}")
+    print(f"Vote Count: {movie.vote_count}")
+    print(f"Adult: {movie.adult}")
+    print(f"Video: {movie.video}")

@@ -5,7 +5,7 @@ from imdb_api.models.movie_model import Movie
 from imdb_api.models.person_model import Person
 from imdb_api.models.genre_model import Genre
 
-TMDB_API_KEY="03170fffae5da3bc45c3bacef187d48c"
+tmdb.API_KEY = "03170fffae5da3bc45c3bacef187d48c"
 
 class Command(BaseCommand):
     help = 'Fetch genres from TMDb and store them in the database'
@@ -26,3 +26,10 @@ class Command(BaseCommand):
             )
 
         self.stdout.write(self.style.SUCCESS('Successfully fetched and stored genres.'))
+
+# Retrieve all genres from the database
+all_genres = Genre.objects.all()
+
+# Print the list of genres
+for genre in all_genres:
+    print(f"ID: {genre.tmdb_id}, Name: {genre.name}")
