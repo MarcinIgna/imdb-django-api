@@ -5,7 +5,7 @@ from imdb_api.models.movie_model import Movie
 from imdb_api.models.person_model import Person
 from imdb_api.models.genre_model import Genre
 
-tmdb.API_KEY = "03170fffae5da3bc45c3bacef187d48c"
+tmdb.API_KEY = os.environ.get('TMDB_API_KEY')
 
 class Command(BaseCommand):
     help = 'Fetch people from TMDb and store them in the database'
