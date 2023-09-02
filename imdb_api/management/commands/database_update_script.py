@@ -1,14 +1,13 @@
-# Standard library imports
+
 import logging
 import os
 import time
 
-# Third-party imports
 import django
 import tmdbsimple as tmdb
 from django.core.management.base import BaseCommand
 
-# Local imports
+
 from imdb_api.models.genre_model import Genre
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.person_model import Person
