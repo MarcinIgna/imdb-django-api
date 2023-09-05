@@ -1,25 +1,37 @@
-
 import logging
 import os
 import time
-
+from ratelimit import limits, sleep_and_retry
+import httpx
+from django.core.management.base import BaseCommand
 import django
 import tmdbsimple as tmdb
-from django.core.management.base import BaseCommand
-
 
 from imdb_api.models.genre_model import Genre
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.person_model import Person
 
-# python manage.py database_update_script     to run this script
+# python manage.py database_update_script to run this script
 
 class Command(BaseCommand):
     help = 'Updates the database with the top 5 rated movies from TMDB'
+
+    # Rate limit: 50 requests per second
+    @sleep_and_retry
+    @limits(calls=50, period=1)
+    def fetch_tmdb_data(self, url):
+        try:
+            with httpx.Client() as client:
+                response = client.get(url)
+                response.raise_for_status()
+                return response.json()
+        except Exception as e:
+            logging.error(f"Error fetching data from TMDB: {e}")
+            return None
+
+# ...
+
     def handle(self, *args, **kwargs):
-        
-                
-        # Set up logging
         logging.basicConfig(filename='database_update.log', level=logging.INFO)
 
         # Replace 'your_project_name' with your actual project name
@@ -34,6 +46,10 @@ class Command(BaseCommand):
         except Exception as e:
             logging.error(f"Error fetching top rated movies: {e}")
             raise e
+
+        # Fetch genres and store them in a list
+        genres = tmdb.Genres()
+        genres_list = genres.movie_list()['genres']
 
         counter = 0
         for movie_info in top_movies['results']:
@@ -65,13 +81,27 @@ class Command(BaseCommand):
 
             # Fetch credits for the current movie
             try:
-                movie_credits = movies.credits(id=movie_info['id'])
+                movie_credits = self.fetch_tmdb_data(f'https://api.themoviedb.org/3/movie/{movie_info["id"]}/credits?id={movie_info["id"]}')
             except Exception as e:
                 logging.error(f"Error fetching credits for movie {movie_info['id']}: {e}")
-                continue
+                continue  # Skip this movie and proceed to the next one
 
-            # Add directors
-            for crew in movie_credits['crew']:
+            if movie_credits is None:
+                logging.warning(f"No credits found for movie {movie_info['id']}. Skipping.")
+                continue  # Skip this movie and proceed to the next one
+
+            # Fetching and populating Person (actors and directors)
+            for cast in movie_credits.get('cast', [])[:3]:
+                try:
+                    actor, created = Person.objects.get_or_create(
+                        tmdb_id=cast['id'],
+                        defaults={'name': cast['name']}
+                    )
+                    movie.actors.add(actor)
+                except Exception as e:
+                    logging.error(f"Error adding actor {cast['id']} to movie {movie_info['id']}: {e}")
+
+            for crew in movie_credits.get('crew', []):
                 if crew['job'] == 'Director':
                     try:
                         director, created = Person.objects.get_or_create(
@@ -82,27 +112,18 @@ class Command(BaseCommand):
                     except Exception as e:
                         logging.error(f"Error adding director {crew['id']} to movie {movie_info['id']}: {e}")
 
-            # Add actors (limiting to the first 3 for brevity)
-            for cast in movie_credits['cast'][:3]:
+            # Fetching and populating Genre
+            for genre_id in movie_info.get('genre_ids', []):
                 try:
-                    actor, created = Person.objects.get_or_create(
-                        tmdb_id=cast['id'],
-                        defaults={'name': cast['name']}
-                    )
-                    movie.actors.add(actor)
-                except Exception as e:
-                    logging.error(f"Error adding actor {cast['id']} to movie {movie_info['id']}: {e}")
-
-            # Associate genres with the movie
-            for genre_info in movie_info.get('genre_ids', []):
-                try:
+                    genre_name = next((genre['name'] for genre in genres_list if genre['id'] == genre_id), 'Unknown')
                     genre, created = Genre.objects.get_or_create(
-                        tmdb_id=genre_info,
-                        defaults={'name': 'Unknown'}  # You can provide a default name if needed
+                        tmdb_id=genre_id,
+                        defaults={'name': genre_name}
                     )
                     movie.genres.add(genre)
                 except Exception as e:
-                    logging.error(f"Error adding genre {genre_info} to movie {movie_info['id']}: {e}")
+                    logging.error(f"Error adding genre {genre_id} to movie {movie_info['id']}: {e}")
 
             counter += 1
             time.sleep(0.5)
+
