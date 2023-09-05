@@ -1,26 +1,17 @@
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from imdb_api.forms.login_form import UserFormLogin
-
 
 def login_view(request):
     if request.method == 'POST':
-        form = UserFormLogin(request.POST)
+        form = AuthenticationForm(request, request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                if user.is_staff:
-                    messages.success(request, 'You have been logged in as staff.')
-                    return redirect('admin:index') # admin:index is the admin dashboard 
-                else:
-                    messages.success(request, 'You have been logged in successfully.')
-                    return redirect('imdb:frontpage')# user home page
-            else:
-                messages.error(request, 'Invalid username or password.')
+                return redirect('imdb:frontpage')  # Replace 'home' with your desired success URL
     else:
-        form = UserFormLogin()
+        form = AuthenticationForm()
     return render(request, 'core/login.html', {'form': form})
