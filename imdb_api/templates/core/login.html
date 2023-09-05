@@ -3,33 +3,73 @@
 {% block title %}Login | {% endblock %}
 
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
-    <h1 class="text-3xl lg:text-6xl">Login</h1>
-</div>
-<form method="post" action="." class="lg:w-1/4 px-4 mx-auto">
-    {% csrf_token %}
-    <div class="mb-5">
-        <label class="text-black">Username</label>
 
-        <input type="text" name="username" class="w-full mt-2 px-4 py-2 rounded-xl">
-    </div>
-    
-    <div class="mb-5"> 
-        <label class="text-black">Password</label>
-        <input type="password" name="password1" class="w-full mt-2 px-4 py-2 rounded-xl">
-    </div>
-    {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="mb-5 p-4 rounded-xl bg-red-300 text-black">
-                    <p>{{ error|escape }}</p>
+<!----------------------- Main Container -------------------------->
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <!----------------------- Login Container -------------------------->
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <!--------------------------- Left Box ----------------------------->
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+            style="background: #1c2232;">
+            <div class="featured-image mb-3">
+                <img src="https://plus.unsplash.com/premium_photo-1681487814165-018814e29155?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    class="img-fluid" style="width: 250px;">
+            </div>
+            <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be
+                Verified</p>
+            <small class="text-white text-wrap text-center"
+                style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join our platform to watch exciting
+                movies.</small>
+        </div>
+        <!-------------------- ------ Right Box ---------------------------->
+
+        <div class="col-md-6 right-box">
+            <div class="row align-items-center">
+                <div class="header-text mb-4">
+                    <h2>Hello, Login to watch</h2>
+                    <p>We are happy to have you back.</p>
                 </div>
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+                <form method="post" action="{% url 'imdb_api:login' %}">
+                    {% csrf_token %}
 
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6"
+                            placeholder="Email address or Username">
+                    </div>
+                    <div class="input-group mb-1">
+                        <input type="password" class="form-control form-control-lg bg-light fs-6"
+                            placeholder="Password">
+                    </div>
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <p class="mb-0">Invalid username or password.</p>
+                    </div>
+                    {% endif %}
+                    <div class="input-group mb-5 d-flex justify-content-between">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="formCheck">
+                            <label for="formCheck" class="form-check-label text-secondary"><small>Remember
+                                    Me</small></label>
+                        </div>
+                        <div class="forgot">
+                            <small><a href="#">Forgot Password?</a></small>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                    </div>
+                </form>
+                <div class="input-group mb-3">
+                    <button class="btn btn-lg btn-light w-100 fs-6"><img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq2yWLXo92aFWDpbgSRHZ9j9Lke0gGw8QZDKHbVyQTtZ5P8FipUWpNevTyQefBuCwaHuY&usqp=CAU"
+                            style="width:50px" class="me-2"><small>Sign In with Google</small></button>
+                </div>
+                <div class="row">
+                    <small>Don't have account? <a href="/signup/">Sign Up</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <button class="px-5 py-3 rounded-xl text-white bg-blue-700 hover:bg-blue-300">Login</button>
-
-</form>
 {% endblock %}
