@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "imdb_api",
     "rest_framework",
     "drf_spectacular",
+
     
 ]
 
