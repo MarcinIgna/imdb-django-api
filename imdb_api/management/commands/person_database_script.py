@@ -11,9 +11,8 @@ tmdb.API_KEY = os.environ.get('TMDB_API_KEY')
 
 class MovieCredits(People):
     def movie_credits(self, **kwargs):
-        path = self._get_id_path('movie_credits')
         tmdb_id = kwargs.get('id', None)
-        url = f"https://api.themoviedb.org/3/person/{tmdb_id}/movie_credits"
+        url:str = f"person/{tmdb_id}/movie_credits"
         kwargs.pop("id", None)
         response = self._GET(url, kwargs)
         self._set_attrs_to_values(response)
