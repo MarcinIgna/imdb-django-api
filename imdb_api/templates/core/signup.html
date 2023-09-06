@@ -3,38 +3,74 @@
 {% block title %}Signup | {% endblock %}
 
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
-    <h1 class="text-3xl lg:text-6xl">Sign Up</h1>
-</div>
-<form method="post" action="." class="lg:w-1/4 px-4 mx-auto">
-    {% csrf_token %}
-    <div class="mb-5">
-        <label class="text-black">Username</label>
 
-        <input type="text" name="username" class="w-full mt-2 px-4 py-2 rounded-xl">
-    </div>
-    
-    <div class="mb-5"> 
-        <label class="text-black">Password </label>
-        <input type="password" name="password1" class="w-full mt-2 px-4 py-2 rounded-xl">
-    </div>
+<!----------------------- Main Container -------------------------->
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <!----------------------- Login Container -------------------------->
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <!--------------------------- Left Box ----------------------------->
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+            style="background: #1c2232;">
+            <div class="featured-image mb-3">
+                <img src="https://images.unsplash.com/photo-1525011268546-bf3f9b007f6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    class="img-fluid" style="width: 250px;">
+            </div>
+            <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be
+                Verified</p>
+            <small class="text-white text-wrap text-center"
+                style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join our platform to watch exciting
+                movies.</small>
+        </div>
+        <!-------------------- ------ Right Box ---------------------------->
 
-    <div class="mb-5"> 
-        <label class="text-black">Repeat </label>
-        <input type="password" name="password2" class="w-full mt-2 px-4 py-2 rounded-xl">
-    </div>
-
-    {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="mb-5 p-4 rounded-xl bg-red-300 text-black">
-                    <p>{{ error|escape  }}</p>
+        <div class="col-md-6 right-box">
+            <div class="row align-items-center">
+                <div class="header-text mb-4">
+                    <h2>Sign Up</h2>
                 </div>
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+                <form method="post" action="">
+                    {% csrf_token %}
 
-    <button class="px-5 py-3 rounded-xl text-white bg-blue-700 hover:bg-blue-300">Submit</button>
+                    <div class="input-group mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" placeholder="Username" id="username" class="form-control">
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" placeholder="Email or Phone" id="email" class="form-control">
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <label for="password1" class="form-label">Password</label>
+                        <input type="password" name="password1" placeholder="Password" id="password1" class="form-control">
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <label for="password2" class="form-label">Confirm Password</label>
+                        <input type="password" name="password2" placeholder="Repeat password" id="password2" class="form-control">
+                    </div>
+                
+                    {% if form.errors %}
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    <div class="mb-5 p-4 rounded-xl bg-red-300 text-black">
+                        <p>{{ error|escape }}</p>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+                
+                    <button type="submit">Register</button><br>
+                
+                    <a href="/login/">i already have an account?</a>
+                
+                
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-</form>
+
 {% endblock %}

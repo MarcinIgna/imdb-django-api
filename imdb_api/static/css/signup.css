@@ -1,0 +1,45 @@
+
+/* Style the form labels to display above the input fields */
+.form-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+/* Adjust the margin for the form controls to create space between the label and input */
+.input-group .form-control {
+    margin-top: 8px;
+}
+
+/* Style the input fields to align with the labels */
+.input-group .form-control,
+.input-group .form-check-input {
+    width: 100%;
+}
+
+/* Style the signup button similar to the login button */
+.btn-primary {
+    background-color: #007bff; /* Blue color for the button */
+    border-color: #007bff;
+    color: #fff; /* White text color */
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 24px;
+}
+
+/* Add hover effect for the signup button */
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
+}
+
+/* Style the link for existing users */
+p a {
+    color: #007bff; /* Blue color for the link */
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
