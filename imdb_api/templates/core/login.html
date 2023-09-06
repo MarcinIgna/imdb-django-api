@@ -29,20 +29,22 @@
                     <h2>Hello, Login to watch</h2>
                     <p>We are happy to have you back.</p>
                 </div>
-                <form method="post" action="{% url 'imdb_api:login' %}">
+                <form method="post" action="{% url 'imdb:login' %}">
                     {% csrf_token %}
 
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6"
-                            placeholder="Email address or Username">
+                            placeholder="Email address or Username" id="username" name="username">
                     </div>
                     <div class="input-group mb-1">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6"
-                            placeholder="Password">
+                        <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password"
+                            id="password" name="password">
                     </div>
-                    {% if form.errors %}
+                    {% if form.non_field_errors %}
                     <div class="alert alert-danger">
-                        <p class="mb-0">Invalid username or password.</p>
+                        {% for error in form.non_field_errors %}
+                        <p class="mb-0">{{ error }}</p>
+                        {% endfor %}
                     </div>
                     {% endif %}
                     <div class="input-group mb-5 d-flex justify-content-between">

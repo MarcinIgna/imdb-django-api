@@ -12,7 +12,7 @@ def signup(request):
 
             login(request, user)
 
-            return redirect('imdb:frontpage')
+            return redirect('imdb:login')
         
     else:
         form = SignUpForm()
