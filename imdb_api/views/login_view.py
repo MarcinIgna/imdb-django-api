@@ -14,7 +14,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 print("User authenticated successfully")
-                return redirect('imdb:logged_in')
+                return redirect('imdb:dashboard')
             else:
                 print("Authentication failed")
         else:

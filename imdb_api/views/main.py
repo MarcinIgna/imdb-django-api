@@ -8,6 +8,7 @@ def frontpage(request):
     return render(request, 'core/frontpage.html')
 
 @login_required(login_url='imdb:login')
-def logged_in_homepage(request):
-    return render(request, 'core/logged_in_homepage.html')
+def dashboard(request):
+    user = request.user.username
+    return render(request, 'core/dashboard.html', {'user': user})
 

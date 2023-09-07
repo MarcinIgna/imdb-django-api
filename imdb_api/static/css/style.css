@@ -1,41 +1,8 @@
 body {
-    background-image: url("https://images.unsplash.com/photo-1634157703702-3c124b455499?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1856&q=80");
-    background-position-x: right;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.nav-list {
-    background-color: rgba(21, 23, 23, 0.977);
+    height:1000px;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: flex-end;
-    /* goes to the end */
-    align-items: center; 
-    border-bottom: 1px solid beige;   
-}
-
-.nav-item {
-    list-style: none;
-    /* removes bullet */
-    margin-right: 2rem;
-    /* spaces the items */
-}
-
-.nav-item a {
-    color: white;
-    text-decoration: none;
-    /* removes any underline or dec. */
-    padding: 10px;
-}
-
-.nav-item a:hover {
-    background-color: rgb(179, 186, 170);
-}
-
-.nav-item:first-child {
-    margin-right: auto;
-    /* first child goes to the left end */
-    cursor: pointer;
+    padding-bottom: 20px; /* Adjust this value as needed */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
