@@ -1,0 +1,16 @@
+/* Add space between user name and logout button */
+.navbar-nav .user-name {
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+/* Style the logout button */
+.navbar-nav .logout-button a {
+    text-decoration: none;
+    color: inherit;
+}
+.navbar-nav .logout-button button.btn {
+    background-color: red; /* Set the background color to red */
+    border-color: red;     /* Set the border color to red */
+    color: white;          /* Set the text color to white or any contrasting color */
+}

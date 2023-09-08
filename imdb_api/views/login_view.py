@@ -20,7 +20,7 @@ def login_view(request):
                     return redirect('admin_panel_url_name')  
                 else:
                     # Redirect to the logged in page for normal users
-                    return redirect('imdb:logged_in') 
+                    return redirect('imdb:dashboard') 
                 
             else:
                 print("Authentication failed")
