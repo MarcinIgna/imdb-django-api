@@ -28,3 +28,9 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @property
+    def poster_url(self):
+        base_url = "https://image.tmdb.org/t/p/original" 
+        print(f"{base_url}{self.poster_path}")
+        return f"{base_url}{self.poster_path}"

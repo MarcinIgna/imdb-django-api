@@ -32,8 +32,11 @@ class AdminView(FormView):
     @staticmethod
     def see_all_movies(request):
         movies = Movie.objects.all()
+        print('movies:', movies)
         context = {"movies": movies}
-        return TemplateResponse(request, "movie/all_movies.html", context)
+        print('context:', context)
+        print('request:', request)
+        return render(request, "core/moviepage.html", context)
     
     def add_movie(request):
         if request.method == 'POST':

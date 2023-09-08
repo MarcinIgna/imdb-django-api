@@ -8,7 +8,8 @@
     <title>{{ user_full_name }}'s Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    {% include 'core/css_link.html' %}
 </head>
 
 <body style="height:2000px">
@@ -16,7 +17,8 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
             <!-- Logo that redirects to homepage -->
-            <a href="{% if user.is_authenticated %}{% url 'imdb:logged_in' %}{% else %}{% url 'imdb:frontpage' %}{% endif %}" class="navbar-brand mb-0 h1">
+            <a href="{% if user.is_authenticated %}{% url 'imdb:logged_in' %}{% else %}{% url 'imdb:frontpage' %}{% endif %}"
+                class="navbar-brand mb-0 h1">
                 <img class="d-inline-block align-top"
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBaciL8bbj5Hg6uDw3TZX78ERJILBMflWIKw&usqp=CAU"
                     width="45" height="30" />
@@ -44,19 +46,29 @@
                             <li><a href="#" class="dropdown-item">Action</a></li>
                             <li><a href="#" class="dropdown-item">Romance</a></li>
                             <li><a href="#" class="dropdown-item">Thriller</a></li>
+                            <li><a href="#" class="dropdown-item">Adventure</a></li>
+                            <li><a href="#" class="dropdown-item">Western</a></li>
+                            <li><a href="#" class="dropdown-item">Fantasy</a></li>
+                            <li><a href="#" class="dropdown-item">Family</a></li>
+                            <li><a href="#" class="dropdown-item">Animation</a></li>
+                            <li><a href="#" class="dropdown-item">Comedy</a></li>
+                            <li><a href="#" class="dropdown-item">War</a></li>
+                            <li><a href="#" class="dropdown-item">History</a></li>
+                            <li><a href="#" class="dropdown-item">Crime</a></li>
+                            <li><a href="#" class="dropdown-item">Drama</a></li>
                         </ul>
-                        
+
                     </li>
                     <li class="nav-item active">
                         <a href="#" class="nav-link">
                             Movies
                         </a>
-                       
+
                     </li>
                     <div class="navbar-nav user-name">
                         <p style="color: white">{{ user }}</p>
                     </div>
-                    
+
                     <div class="navbar-nav logout-button">
                         <button class="btn btn-outline-light btn-red">
                             <a href="{% url 'imdb:logout' %}" style="text-decoration: none; color: inherit;">Logout</a>
@@ -71,18 +83,15 @@
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
-        
-
     </nav>
+
+    {% include 'core/moviepage.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
+    {% include 'core/javascript_link.html' %}
 </body>
 
 </html>
 {% block content %}
 {% endblock %}
-
-</body>
-
-</html>
