@@ -11,5 +11,5 @@ def frontpage(request):
 def dashboard(request):
     user = request.user.username
     movies_obj = Movie.objects.all()
-    return render(request, 'core/dashboard.html', {'user': user, 'movies1': movies_obj[:4], 'movies2': movies_obj[4:8], 'movies3': movies_obj[8:]})
+    return render(request, 'core/dashboard.html', {'user': user, 'movies1': movies_obj[:4], 'movies2': movies_obj[4:8], 'movies3': movies_obj[8:12]})
 

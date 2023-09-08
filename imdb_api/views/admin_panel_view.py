@@ -33,7 +33,7 @@ class AdminView(FormView):
     def see_all_movies(request):
         movies = Movie.objects.all()
         print('movies:', movies)
-        context = {"movies": movies}
+        context = {'movies1': movies[:4], 'movies2': movies[4:8], 'movies3': movies[8:12]}
         print('context:', context)
         print('request:', request)
         return render(request, "core/moviepage.html", context)

@@ -9,7 +9,7 @@
     text-decoration: none;
     color: inherit;
 }
-.btn-red {
+.navbar-nav .logout-button button.btn {
     background-color: red; /* Set the background color to red */
     border-color: red;     /* Set the border color to red */
     color: white;          /* Set the text color to white or any contrasting color */
