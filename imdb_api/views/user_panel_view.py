@@ -1,12 +1,31 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponseForbidden, HttpResponseNotFound
-
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib import messages
 
 from imdb_api.models.movie_model import Movie
 from imdb_api.forms.comment_form import CommentForm
 from imdb_api.models.comment_model import Comment
 from imdb_api.models.user_favorite_model import UserFavorite
+
+
+def update_user_profile(request):
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated successfully.')
+            # Redirect to the user's profile page or any other appropriate page
+            return redirect("user_profile")  # Adjust the URL name as needed
+        else:
+            messages.error(request, 'There was an error in the form. Please correct it.')
+
+    else:
+        form = UserChangeForm(instance=request.user)
+    
+    # Render the form in the template for users to update their profile
+    return render(request, 'profile_update.html', {'form': form})
 
 
 class CommentView(View):
