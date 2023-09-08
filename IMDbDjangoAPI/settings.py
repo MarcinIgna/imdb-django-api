@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "imdb_api",
     "rest_framework",
     "drf_spectacular",
+    "rest_framework.authtoken",
 
     
 ]
@@ -165,3 +166,12 @@ else:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "imdb_api/static"),
 ]
+    
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
