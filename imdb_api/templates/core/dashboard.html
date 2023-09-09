@@ -10,14 +10,9 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         {% include 'core/css_link.html' %}
         <!-- Add inline CSS for body background color -->
-    <style>
-        body {
-            background-color: black;
-        }
-    </style>
 </head>
 
-<body>
+<body class="base">
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-black">
         <div class="container">
@@ -93,7 +88,7 @@
         </div>
     </nav>
 
-    {% include 'core/moviepage.html' %}
+    {% include 'core/movie_page.html' %}
 
     <!-- Navbar Bootstrap Js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
