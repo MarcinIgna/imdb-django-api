@@ -53,7 +53,7 @@ class Command(BaseCommand):
 
         counter = 0
         for movie_info in top_movies['results']:
-            if counter >= 5:
+            if counter >= 10:
                 break
 
             # Create or get the movie

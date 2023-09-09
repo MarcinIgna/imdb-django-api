@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Movie Trailers and Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <!-- Navbar content here -->
+</nav>
+
+<div class="container mt-4">
+    <h2>Movie Trailers</h2>
+    <div class="row">
+        <!-- Loop through your list of movie trailers -->
+        {% for trailer in trailers %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <iframe width="100%" height="200" src="{{ trailer.youtube_url }}" frameborder="0" allowfullscreen></iframe>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ trailer.title }}</h5>
+                        <p class="card-text">{{ trailer.description }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h2>Movie Details</h2>
+    <div class="row">
+        <!-- Loop through your list of movie details -->
+        {% for detail in movie_details %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img src="{{ detail.poster_url }}" class="card-img-top" alt="{{ detail.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ detail.title }}</h5>
+                        <p class="card-text">{{ detail.overview }}</p>
+                        <p class="card-text">Release Date: {{ detail.release_date }}</p>
+                        <p class="card-text">Genre: {{ detail.genre }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>

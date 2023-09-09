@@ -1,3 +1,7 @@
+/* body styling */
+body{
+    background-image: url("https://images.unsplash.com/photo-1667505961731-2871024cef63?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1vdmllJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60")
+}
 /* Add space between user name and logout button */
 .navbar-nav .user-name {
     margin-right: 10px;
