@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from imdb_api.models.movie_model import Movie
 from django.http import Http404
+from django.shortcuts import render
+from imdb_api.models.movie_model import Movie
+from imdb_api.models.trailer_model import TrailerVideo
 
 # creating movie views
 
@@ -22,3 +25,24 @@ def movie_details(request, movie_id):
     context = {'movie': movie}
     return render(request, 'core/movie_details.html', context)
 
+
+
+"""        
+        {% for video in trailer_videos %}
+            <li>
+                <a href="https://www.youtube.com/watch?v={{ video.key }}">
+                    {{ video.name }}
+                </a>
+            </li>
+        {% endfor %}
+        """
+
+def trailer_display(request, movie_id):
+    try:
+        movie = Movie.objects.get(pk=movie_id)
+        trailer_videos = TrailerVideo.objects.filter(movie=movie)
+    except Movie.DoesNotExist:
+        movie = None
+        trailer_videos = []
+
+    return render(request, 'movie_detail.html', {'movie': movie, 'trailer_videos': trailer_videos})
