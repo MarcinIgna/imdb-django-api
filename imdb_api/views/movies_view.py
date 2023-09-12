@@ -9,16 +9,16 @@ from imdb_api.models.trailer_model import TrailerVideo
 
 def all_movies(request):
     movies = Movie.objects.all()
-    print('movies:', movies)
+    # print('movies:', movies)
     context = {'movies1': movies[:4], 'movies2': movies[4:8], 'movies3': movies[8:12]}
-    print('context:', context)
-    print('request:', request)
+    # print('context:', context)
+    # print('request:', request)
     return render(request, "core/movie_page.html", context)
 
 def movie_details(request, movie_id):
     try:
         movie = Movie.objects.filter(pk=movie_id)
-        print('movie: ', movie)
+        # print('movie: ', movie)
     except Movie.DoesNotExist:
         raise Http404("Movie does not exist")
 
