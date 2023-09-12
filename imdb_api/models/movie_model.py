@@ -27,5 +27,5 @@ class Movie(models.Model):
     @property
     def poster_url(self):
         base_url = "https://image.tmdb.org/t/p/original" 
-        print(f"{base_url}{self.poster_path}")
+        # print(f"{base_url}{self.poster_path}")
         return f"{base_url}{self.poster_path}"
