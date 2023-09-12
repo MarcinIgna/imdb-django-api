@@ -11,7 +11,24 @@
 </head>
 
 <body>
-    {% include 'core/navbar.html' %}
+    {% include 'core/dash_navbar.html' %}
+    <div class="container mt-4">
+        <h2>Movie Trailers</h2>
+        <div class="row">
+            <!-- Loop through your list of movie trailers -->
+            {% for trailer in trailers %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <iframe width="100%" height="200" src="{{ trailer.youtube_url }}" frameborder="0" allowfullscreen></iframe>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ trailer.title }}</h5>
+                            <p class="card-text">{{ trailer.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     <div class="container mt-4">
         <h2>Movie Details</h2>
         <div class="row">
@@ -43,4 +60,3 @@
 </body>
 
 </html>
-https://www.youtube.com/embed/x73-573aWfs

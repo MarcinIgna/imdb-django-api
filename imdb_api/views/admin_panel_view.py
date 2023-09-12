@@ -36,7 +36,7 @@ class AdminView(FormView):
         context = {'movies1': movies[:4], 'movies2': movies[4:8], 'movies3': movies[8:12]}
         print('context:', context)
         print('request:', request)
-        return render(request, "core/movie_page.html", context)
+        return render(request, "core/all_movies.html", context)
     
     def add_movie(request):
         if request.method == 'POST':

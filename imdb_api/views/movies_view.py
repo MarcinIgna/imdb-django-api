@@ -6,11 +6,17 @@ from django.http import Http404
 
 def all_movies(request):
     movies = Movie.objects.all()
-    print('movies:', movies)
-    context = {'movies1': movies[:4], 'movies2': movies[4:8], 'movies3': movies[8:12]}
+    context = {
+        'movies1': movies[:4],
+        'movies2': movies[4:8],
+        'movies3': movies[8:12],
+        'movies4': movies[12:16],
+        'movies5': movies[16:20],
+        'movies6': movies[20:24],
+     }
     print('context:', context)
     print('request:', request)
-    return render(request, "core/movie_page.html", context)
+    return render(request, "core/all_movies.html", context)
 
 def movie_details(request, movie_id):
     try:

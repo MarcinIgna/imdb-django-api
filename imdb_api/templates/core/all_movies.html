@@ -91,6 +91,72 @@
                     {% endfor %}
                 </div>
             </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv4 in movies4 %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            <a href="{% url 'imdb:movie_details' movie_id=mv4.pk %}"><img src="{{ mv4.poster_url }}"
+                                    class="card-img-top" alt="{{ mv4.title }}"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ mv4.title }}</h5>
+                                <p class="card-text">{{ mv4.overview|truncatechars:70 }}</p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ mv4.title }}"
+                                    data-movie-overview="{{ mv4.overview }}"
+                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv5 in movies5 %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            <a href="{% url 'imdb:movie_details' movie_id=mv5.pk %}"><img src="{{ mv5.poster_url }}"
+                                    class="card-img-top" alt="{{ mv5.title }}"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ mv5.title }}</h5>
+                                <p class="card-text">{{ mv5.overview|truncatechars:70 }}</p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ mv5.title }}"
+                                    data-movie-overview="{{ mv5.overview }}"
+                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv6 in movies6 %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            <a href="{% url 'imdb:movie_details' movie_id=mv6.pk %}"><img src="{{ mv6.poster_url }}"
+                                    class="card-img-top" alt="{{ mv3.title }}"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ mv6.title }}</h5>
+                                <p class="card-text">{{ mv6.overview|truncatechars:70 }}</p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ m6.title }}"
+                                    data-movie-overview="{{ mv6.overview }}"
+                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -101,6 +167,7 @@
             <span class="visually-hidden">Next</span>
         </a>
     </div>
+    
 
     <!-- movies modal -->
     <div class="modal fade" id="movieDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
