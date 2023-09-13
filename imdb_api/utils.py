@@ -3,6 +3,9 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from django.db.models import Avg, Count
+
+from imdb_api.models.user_vote_model import MovieVote
 
 nltk.download('stopwords')
 
@@ -43,3 +46,13 @@ def calculate_tfidf_matrix(movie_overviews):
     similarities = cosine_similarity(tfidf_matrix)
 
     return similarities
+
+
+
+
+def update_movie_vote_average(movie):
+    # Calculate the new vote_average and vote_count for the movie
+    movie_data = MovieVote.objects.filter(movie=movie).aggregate(Avg('rating'), Count('rating'))
+    movie.vote_average = movie_data['rating__avg'] or 0.0
+    movie.vote_count = movie_data['rating__count']
+    movie.save()
