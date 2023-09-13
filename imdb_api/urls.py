@@ -8,7 +8,10 @@ from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
 from django.contrib.auth import views as auth_views  # Import Django's built-in authentication views
 from imdb_api.views.user_recommendations import user_recommendations
-app_name = "imdb_api"
+from imdb_api.views.user_panel_view import vote_for_movie
+
+
+app_name = "imdb"
 urlpatterns = [
     path("", frontpage, name='frontpage'),
 
@@ -20,6 +23,7 @@ urlpatterns = [
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
     path('recommendations/', user_recommendations, name='user_recommendations'),
+    path('vote_for_movie/<int:movie_id>/', vote_for_movie, name='vote_for_movie'),
 
     # path for all movie infos.
     path('all_movies/', all_movies, name='all_movies'),
