@@ -23,32 +23,19 @@ def all_movies(request):
 
 def movie_details(request, movie_id):
     try:
-        movie = Movie.objects.filter(pk=movie_id)
-        # print('movie: ', movie)
-    except Movie.DoesNotExist:
-        raise Http404("Movie does not exist")
-
-    context = {'movie': movie}
-    return render(request, 'core/movie_details.html', context)
-
-
-
-"""        
-        {% for video in trailer_videos %}
-            <li>
-                <a href="https://www.youtube.com/watch?v={{ video.key }}">
-                    {{ video.name }}
-                </a>
-            </li>
-        {% endfor %}
-        """
-
-def trailer_display(request, movie_id):
-    try:
-        movie = Movie.objects.get(pk=movie_id)
+        movie = get_object_or_404(Movie, pk=movie_id)
         trailer_videos = TrailerVideo.objects.filter(movie=movie)
     except Movie.DoesNotExist:
-        movie = None
-        trailer_videos = []
+        raise Http404("Movie does not exist")
+    
+    return render(request, 'core/movie_details.html', {'movie': movie, 'trailers': trailer_videos})
 
-    return render(request, 'movie_detail.html', {'movie': movie, 'trailer_videos': trailer_videos})
+
+def movie_details_with_trailers(request, movie_id):
+    try:
+        movie = get_object_or_404(Movie, pk=movie_id)
+        trailer_videos = TrailerVideo.objects.filter(movie=movie)
+    except Movie.DoesNotExist:
+        raise Http404("Movie does not exist")
+    
+    return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos})

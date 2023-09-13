@@ -21,6 +21,10 @@
 <body class="base">
     <!-- navbar start -->
     {% include 'core/base_navbar.html' %}
+    {% block content %}
+    {% endblock %}
+
+
 
 
     <!-- movie bootstrap js -->
@@ -40,8 +44,8 @@
         crossorigin="anonymous"></script>
     <!-- Include your custom JavaScript file -->
     <script src="{% static 'js/movie_picker.js' %}"></script>
+    <!-- ##### footer ##### -->
+    {% include 'core/footer.html' %}
 </body>
 
 </html>
-{% block content %}
-{% endblock %}

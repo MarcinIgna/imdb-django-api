@@ -14,5 +14,8 @@ def dashboard(request):
     movies_obj = Movie.objects.all()
     # print('movies_obj: ', movies_obj)
     # print('request:', request)
-    return render(request, 'core/dashboard.html', {'user': user, 'movies1': movies_obj[:4], 'movies2': movies_obj[4:8], 'movies3': movies_obj[8:12]})
+    return render(request, 'core/dashboard.html', {'user': user, 
+                            'movies1': movies_obj[:4], 'movies2': movies_obj[4:8],
+                            'movies3': movies_obj[8:12],'movies4': movies_obj[12:16],
+                            'movies5': movies_obj[16:20],'movies6': movies_obj[20:24],})
 

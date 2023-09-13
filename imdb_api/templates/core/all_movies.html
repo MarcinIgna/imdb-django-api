@@ -6,14 +6,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Imdb clone</title>
+    <title>All Movies</title>
     <!-- Movie Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
 
-<body>
+<body style="background-color: black;">
 
     <center>
         <h2>
@@ -23,26 +23,14 @@
     <br>
 
     <!-- MAIN CONTAINER -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="row">
                     {% for mv1 in movies1 %}
-                    <div class="col-md-3">
-                        <div class="card">
-                            <a href="{% url 'imdb:movie_details' movie_id=mv1.pk %}"><img src="{{ mv1.poster_url }}"
-                                    class="card-img-top" alt="{{ mv1.title }}"></a>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ mv1.title }}</h5>
-                                <p class="card-text">{{ mv1.overview|truncatechars:70 }}</p>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ mv1.title }}"
-                                    data-movie-overview="{{ mv1.overview }}"
-                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
-                                    View Details
-                                </button>
-                            </div>
-                        </div>
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv1.pk %}"><img src="{{ mv1.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
                 </div>
@@ -50,21 +38,9 @@
             <div class="carousel-item">
                 <div class="row">
                     {% for mv2 in movies2 %}
-                    <div class="col-md-3">
-                        <div class="card">
-                            <a href="{% url 'imdb:movie_details' movie_id=mv2.pk %}"><img src="{{ mv2.poster_url }}"
-                                    class="card-img-top" alt="{{ mv2.title }}"></a>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ mv2.title }}</h5>
-                                <p class="card-text">{{ mv2.overview|truncatechars:70 }}</p>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ mv2.title }}"
-                                    data-movie-overview="{{ mv2.overview }}"
-                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
-                                    View Details
-                                </button>
-                            </div>
-                        </div>
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv2.pk %}"><img src="{{ mv2.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
                 </div>
@@ -72,21 +48,9 @@
             <div class="carousel-item">
                 <div class="row">
                     {% for mv3 in movies3 %}
-                    <div class="col-md-3">
-                        <div class="card">
-                            <a href="{% url 'imdb:movie_details' movie_id=mv3.pk %}"><img src="{{ mv3.poster_url }}"
-                                    class="card-img-top" alt="{{ mv3.title }}"></a>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ mv3.title }}</h5>
-                                <p class="card-text">{{ mv3.overview|truncatechars:70 }}</p>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ m3.title }}"
-                                    data-movie-overview="{{ mv3.overview }}"
-                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
-                                    View Details
-                                </button>
-                            </div>
-                        </div>
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv3.pk %}"><img src="{{ mv3.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
                 </div>
@@ -94,21 +58,9 @@
             <div class="carousel-item">
                 <div class="row">
                     {% for mv4 in movies4 %}
-                    <div class="col-md-3">
-                        <div class="card">
-                            <a href="{% url 'imdb:movie_details' movie_id=mv4.pk %}"><img src="{{ mv4.poster_url }}"
-                                    class="card-img-top" alt="{{ mv4.title }}"></a>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ mv4.title }}</h5>
-                                <p class="card-text">{{ mv4.overview|truncatechars:70 }}</p>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ mv4.title }}"
-                                    data-movie-overview="{{ mv4.overview }}"
-                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
-                                    View Details
-                                </button>
-                            </div>
-                        </div>
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv4.pk %}"><img src="{{ mv4.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
                 </div>
@@ -116,21 +68,9 @@
             <div class="carousel-item">
                 <div class="row">
                     {% for mv5 in movies5 %}
-                    <div class="col-md-3">
-                        <div class="card">
-                            <a href="{% url 'imdb:movie_details' movie_id=mv5.pk %}"><img src="{{ mv5.poster_url }}"
-                                    class="card-img-top" alt="{{ mv5.title }}"></a>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ mv5.title }}</h5>
-                                <p class="card-text">{{ mv5.overview|truncatechars:70 }}</p>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ mv5.title }}"
-                                    data-movie-overview="{{ mv5.overview }}"
-                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
-                                    View Details
-                                </button>
-                            </div>
-                        </div>
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv5.pk %}"><img src="{{ mv5.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
                 </div>
@@ -138,61 +78,25 @@
             <div class="carousel-item">
                 <div class="row">
                     {% for mv6 in movies6 %}
-                    <div class="col-md-3">
-                        <div class="card">
-                            <a href="{% url 'imdb:movie_details' movie_id=mv6.pk %}"><img src="{{ mv6.poster_url }}"
-                                    class="card-img-top" alt="{{ mv3.title }}"></a>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ mv6.title }}</h5>
-                                <p class="card-text">{{ mv6.overview|truncatechars:70 }}</p>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#movieDetailsModal" data-movie-title="{{ m6.title }}"
-                                    data-movie-overview="{{ mv6.overview }}"
-                                    data-youtube-trailer="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID">
-                                    View Details
-                                </button>
-                            </div>
-                        </div>
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv6.pk %}"><img src="{{ mv6.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </a>
     </div>
-    
 
-    <!-- movies modal -->
-    <div class="modal fade" id="movieDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Movie Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Movie details section -->
-                    <h5 class="modal-title" id="movieTitle"></h5>
-                    <p id="movieOverview"></p>
 
-                    <!-- YouTube trailer section -->
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" id="youtubeTrailer" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Include jQuery before Bootstrap JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -205,24 +109,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>
-        
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-    <!-- Update the JavaScript at the end of your HTML body -->
-    <script>
-        // JavaScript to handle modal data
-        $(document).ready(function () {
-            $('.btn-primary').on('click', function () {
-                var movieTitle = $(this).data('movie-title');
-                var movieOverview = $(this).data('movie-overview');
-
-                // Set the data attributes within the modal
-                $('#movieDetailsModal').find('.modal-title').text(movieTitle);
-                $('#movieDetailsModal').find('.modal-body p').text(movieOverview);
-            });
-        });
-    </script>
 </body>
 
 </html>
