@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.db.models import Avg, Count
+import json
 
 from imdb_api.models.movie_model import Movie
 from imdb_api.forms.comment_form import CommentForm
