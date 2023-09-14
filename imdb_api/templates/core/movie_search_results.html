@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Search Results</title>
+</head>
+<body>
+    <h1>Movie Search Results</h1>
+    
+    {% if movies %}
+        <ul>
+            {% for movie in movies %}
+                <li><a href="{% url 'imdb:movie_details' movie.id %}">{{ movie.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No movies found matching your search.</p>
+    {% endif %}
+</body>
+</html>
