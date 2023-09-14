@@ -13,3 +13,9 @@ class TrailerVideo(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def trailer_url(self):
+        base_url = "https://www.youtube.com/embed/" 
+        print(f"{base_url}{self.key}")
+        return f"{base_url}{self.key}"
