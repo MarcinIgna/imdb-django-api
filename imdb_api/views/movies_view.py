@@ -46,3 +46,13 @@ def trailer_display(request, movie_id):
         trailer_videos = []
 
     return render(request, 'movie_detail.html', {'movie': movie, 'trailer_videos': trailer_videos})
+
+def movie_search(request):
+    query = request.GET.get('query')
+    movies = []  # Change this variable name to 'movies'
+
+    if query:
+        # Perform a case-insensitive search on the Movie model
+        movies = Movie.objects.filter(title__icontains=query)
+
+    return render(request, 'core/movie_search_results.html', {'movies': movies})
