@@ -36,6 +36,18 @@ def movie_details_with_trailers(request, movie_id):
         movie = get_object_or_404(Movie, pk=movie_id)
         trailer_videos = TrailerVideo.objects.filter(movie=movie)
     except Movie.DoesNotExist:
+
         raise Http404("Movie does not exist")
     
     return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos})
+
+
+def movie_search(request):
+    query = request.GET.get('query')
+    movies = []  # Change this variable name to 'movies'
+
+    if query:
+        # Perform a case-insensitive search on the Movie model
+        movies = Movie.objects.filter(title__icontains=query)
+
+    return render(request, 'core/movie_search_results.html', {'movies': movies})
