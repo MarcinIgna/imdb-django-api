@@ -48,12 +48,14 @@
                     </a>
                 </li>
             </ul>
-            <div class="box">
-                <input type="text" placeholder="Search...">
-                <a href="#">
-                    <i class="fa fa-search"></i>
-                </a>
-            </div>
+            <form method="GET" action="{% url 'imdb:movie_search' %}">
+                <div class="box">
+                    <input type="text" name="query" placeholder="Search...">
+                    <button type="submit">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
         </div>
         <div>
             <button class="btn btn-outline-light" style="border-color: gold; border-radius: 30px;"><a href="/login" style="text-decoration: none; color: inherit;">Sign In</a></button>

@@ -2,8 +2,7 @@ from django.urls import path
 from imdb_api.views.main import frontpage, dashboard
 from imdb_api.views.signup import signup
 from imdb_api.views.login_view import login_view, logout_view
-from imdb_api.views.movies_view import all_movies, movie_details, movie_details_with_trailers, new_movies
-from imdb_api.views.admin_panel_view import AdminView
+from imdb_api.views.movies_view import all_movies, new_movies, movie_details_with_trailers, movie_details, movie_search
 from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
 from django.contrib.auth import views as auth_views  # Import Django's built-in authentication views
@@ -20,7 +19,7 @@ urlpatterns = [
     path("dashboard/", dashboard, name='dashboard'),
     path('movie_search/', movie_search, name='movie_search'),
 
-    # path for login
+    # path for Signup, Login, Logout
     path("signup/", signup, name="signup"),
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
@@ -29,9 +28,10 @@ urlpatterns = [
 
     # path for all movie infos.
     path('all_movies/', all_movies, name='all_movies'),
+    path('new_movies', new_movies, name='new_movies'),
     path('movie_details/<int:movie_id>/', movie_details, name='movie_details'),
     path('detail&trailer/<int:movie_id>/', movie_details_with_trailers, name='detail&trailer'),
-    path('new_movies', new_movies, name='new_movies'),
+    path('movie_search', movie_search, name='movie_search'),
     
     # APIs for movies
     path("apis/movies/", MovieView.as_view(), name="apis_movies"),

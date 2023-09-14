@@ -17,8 +17,8 @@ def all_movies(request):
         'movies5': movies[16:20],
         'movies6': movies[20:24],
      }
-    print('context:', context)
-    print('request:', request)
+    # print('context:', context)
+    # print('request:', request)
     return render(request, "core/all_movies.html", context)
 
 def new_movies(request):
@@ -31,8 +31,8 @@ def new_movies(request):
         'movies11': movies[40:44],
         'movies12': movies[44:48],
      }
-    print('context:', context)
-    print('request:', request)
+    # print('context:', context)
+    # print('request:', request)
     return render(request, "core/new_movies.html", context)
 
 def movie_details(request, movie_id):
@@ -58,7 +58,7 @@ def movie_details_with_trailers(request, movie_id):
 
 def movie_search(request):
     query = request.GET.get('query')
-    movies = []  # Change this variable name to 'movies'
+    movies = []
 
     if query:
         # Perform a case-insensitive search on the Movie model
