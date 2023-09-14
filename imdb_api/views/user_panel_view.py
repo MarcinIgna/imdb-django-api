@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.db.models import Avg, Count
+import json
 
 from imdb_api.models.movie_model import Movie
 from imdb_api.forms.comment_form import CommentForm
@@ -79,49 +79,61 @@ class CommentView(View):
         
 
 
+
+
+
+"""
+<button id="favorite-button" data-movie-id="{{ movie.id }}" data-is-favorite="{{ is_favorite }}">
+    {% if is_favorite %}
+        Remove from Favorites
+    {% else %}
+        Add to Favorites
+    {% endif %}
+</button>
+
+"""
 # it is just how it could work we will see     
-class UserFavoriteView(View):
-    """
-    This view is used to add and remove movies from the user's favorites.
-    """
-    def add_to_favorite(self, request, movie_id):
-        if request.user.is_authenticated:
-            movie = Movie.objects.get(pk=movie_id)
-            user_favorite, created = UserFavorite.objects.get_or_create(user=request.user, movie=movie)
-            if created:
-                return redirect('movie_detail', movie_id=movie_id)
-            else:
-                return HttpResponseForbidden("You have already added this movie to your favorites.")
-        else:
-            return HttpResponseForbidden("You don't have permission to add this movie to your favorites.")
-        
-    def remove_from_favorite(self, request, movie_id):
-        if request.user.is_authenticated:
-            movie = Movie.objects.get(pk=movie_id)
-            user_favorite = UserFavorite.objects.get(user=request.user, movie=movie)
+def toggle_favorite(request, movie_id):
+    if request.user.is_authenticated:
+        movie = Movie.objects.get(pk=movie_id)
+        user = request.user
+
+        try:
+            user_favorite = UserFavorite.objects.get(user=user, movie=movie)
             user_favorite.delete()
-            return redirect('movie_detail', movie_id=movie_id)
-        else:
-            return HttpResponseForbidden("You don't have permission to remove this movie from your favorites.")
-     # View the user's all favorite movies   
-    def favorite_movies(self, request):
-        if request.user.is_authenticated:
-            favorite_movies = UserFavorite.objects.filter(user=request.user).select_related('movie')
-            return render(request, 'favorite_movies.html', {'favorite_movies': favorite_movies})
-        else:
-            return HttpResponseForbidden("You don't have permission to view this page.")
+            is_favorite = False
+        except UserFavorite.DoesNotExist:
+            UserFavorite.objects.create(user=user, movie=movie)
+            is_favorite = True
+
+        return JsonResponse({"success": True, "is_favorite": is_favorite})
+    else:
+        return JsonResponse({"success": False, "message": "User not authenticated"})
+    
+    
+    # View the user's all favorite movies   
+def favorite_movies(request):
+    if request.user.is_authenticated:
+        favorite_movies = UserFavorite.objects.filter(user=request.user).select_related('movie')
+        return render(request, 'favorite_movies.html', {'favorite_movies': favorite_movies})
+    else:
+        return HttpResponseForbidden("You don't have permission to view this page.")
 
     
   
-# check if form is needed if not under is function that is not using form      
+# check if form is needed if not under is function that is not using form
+
+"""This should work with javascript"""
 def vote_for_movie(request, movie_id):
     """
     This view is used to add or update a user's vote for a movie.
     """
     if request.method == 'POST':
-        form = MovieVoteForm(request.POST)
-        if form.is_valid():
-            user_vote = form.cleaned_data['rating']
+        data = json.loads(request.body)  # Parse JSON payload
+
+        user_vote = data.get('rating')  # Assuming your JavaScript sends 'rating' in the JSON
+
+        if user_vote is not None and 1 <= user_vote <= 10:
             movie = get_object_or_404(Movie, pk=movie_id)
             movie_vote, created = MovieVote.objects.get_or_create(user=request.user, movie=movie, defaults={'rating': user_vote})
             if not created:
@@ -129,17 +141,18 @@ def vote_for_movie(request, movie_id):
                 movie_vote.save()
             update_movie_vote_average(movie)
             return JsonResponse({'success': True})
+    
     return JsonResponse({'success': False})
 
-
+      
 # def vote_for_movie(request, movie_id):
 #     """
 #     This view is used to add or update a user's vote for a movie.
 #     """
 #     if request.method == 'POST':
-#         user_vote = request.POST.get('rating')  # Assuming the rating is sent in the POST data
-#         if user_vote is not None:
-#             user_vote = float(user_vote)  # Convert the user's vote to a float if needed
+#         form = MovieVoteForm(request.POST)
+#         if form.is_valid():
+#             user_vote = form.cleaned_data['rating']
 #             movie = get_object_or_404(Movie, pk=movie_id)
 #             movie_vote, created = MovieVote.objects.get_or_create(user=request.user, movie=movie, defaults={'rating': user_vote})
 #             if not created:
@@ -148,3 +161,4 @@ def vote_for_movie(request, movie_id):
 #             update_movie_vote_average(movie)
 #             return JsonResponse({'success': True})
 #     return JsonResponse({'success': False})
+
