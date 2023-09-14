@@ -5,7 +5,17 @@ from imdb_api.models.movie_model import Movie
 
 
 def frontpage(request):
-    return render(request, 'core/frontpage.html')
+    movies = Movie.objects.all()
+    context = {
+        'movies7': movies[24:28],
+        'movies8': movies[28:32],
+        'movies9': movies[32:36],
+        'movies10': movies[36:40],
+        'movies11': movies[40:44],
+        'movies12': movies[44:48],
+     }
+    print('context:', context)
+    return render(request, 'core/frontpage.html', context)
 
 @login_required(login_url='imdb:login')
 def dashboard(request):

@@ -33,7 +33,7 @@ def new_movies(request):
      }
     print('context:', context)
     print('request:', request)
-    return render(request, "core/movie_picker.html", context)
+    return render(request, "core/new_movies.html", context)
 
 def movie_details(request, movie_id):
     try:
