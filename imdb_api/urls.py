@@ -2,7 +2,7 @@ from django.urls import path
 from imdb_api.views.main import frontpage, dashboard
 from imdb_api.views.signup import signup
 from imdb_api.views.login_view import login_view, logout_view
-from imdb_api.views.movies_view import all_movies, movie_details, movie_details_with_trailers
+from imdb_api.views.movies_view import all_movies, movie_details, movie_details_with_trailers, new_movies
 from imdb_api.views.admin_panel_view import AdminView
 from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
@@ -29,6 +29,7 @@ urlpatterns = [
     path('all_movies/', all_movies, name='all_movies'),
     path('movie_details/<int:movie_id>/', movie_details, name='movie_details'),
     path('detail&trailer/<int:movie_id>/', movie_details_with_trailers, name='detail&trailer'),
+    path('new_movies', new_movies, name='new_movies'),
     
     # APIs for movies
     path("apis/movies/", MovieView.as_view(), name="apis_movies"),
