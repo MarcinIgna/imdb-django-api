@@ -1,4 +1,7 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
+
+
 from imdb_api.views.main import frontpage, dashboard
 from imdb_api.views.signup import signup
 from imdb_api.views.login_view import login_view, logout_view
@@ -6,10 +9,9 @@ from imdb_api.views.movies_view import all_movies, movie_details, movie_details_
 from imdb_api.views.admin_panel_view import AdminView
 from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
-from django.contrib.auth import views as auth_views  # Import Django's built-in authentication views
 from imdb_api.views.user_recommendations import user_recommendations
 from imdb_api.views.user_panel_view import vote_for_movie
-from imdb_api.views.movies_view import movie_search
+from imdb_api.views.movies_view import movie_search, movies_by_genre
 
 
 app_name = "imdb"
@@ -19,6 +21,7 @@ urlpatterns = [
     # path for user dashboard
     path("dashboard/", dashboard, name='dashboard'),
     path('movie_search/', movie_search, name='movie_search'),
+    path('movies-by-genre/<str:genre>/', movies_by_genre, name='movies_by_genre'),
 
     # path for login
     path("signup/", signup, name="signup"),
