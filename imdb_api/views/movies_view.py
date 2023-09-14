@@ -7,7 +7,23 @@ from imdb_api.models.trailer_model import TrailerVideo
 
 # creating movie views
 
+
+
+"""
+
+<li><a href="{% url 'imdb:movies_by_genre' 'Action' %}" class="dropdown-item">Action</a></li>
+<li><a href="{% url 'imdb:movies_by_genre' 'Romance' %}" class="dropdown-item">Romance</a></li>
+<li><a href="{% url 'imdb:movies_by_genre' 'Thriller' %}" class="dropdown-item">Thriller</a></li>
+
+"""
+def movies_by_genre(request, genre):
+    # Filter movies based on the selected genre
+    movies = Movie.objects.filter(genre__icontains=genre)
+
+    return render(request, 'html with movie list', {'movies': movies, 'genre': genre})
+    
 def all_movies(request):
+    # All movies
     movies = Movie.objects.all()
     context = {
         'movies1': movies[:4],
@@ -22,6 +38,7 @@ def all_movies(request):
     return render(request, "core/all_movies.html", context)
 
 def movie_details(request, movie_id):
+    # Get the movie with the given id
     try:
         movie = get_object_or_404(Movie, pk=movie_id)
         trailer_videos = TrailerVideo.objects.filter(movie=movie)
@@ -32,6 +49,7 @@ def movie_details(request, movie_id):
 
 
 def movie_details_with_trailers(request, movie_id):
+    # Get the movie with the given id
     try:
         movie = get_object_or_404(Movie, pk=movie_id)
         trailer_videos = TrailerVideo.objects.filter(movie=movie)
