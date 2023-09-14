@@ -14,7 +14,7 @@ def frontpage(request):
         'movies11': movies[40:44],
         'movies12': movies[44:48],
      }
-    print('context:', context)
+    # print('context:', context)
     return render(request, 'core/frontpage.html', context)
 
 @login_required(login_url='imdb:login')

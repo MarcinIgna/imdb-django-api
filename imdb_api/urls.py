@@ -10,7 +10,7 @@ from imdb_api.views.admin_panel_view import AdminView
 from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
 from imdb_api.views.user_recommendations import user_recommendations
-from imdb_api.views.user_panel_view import vote_for_movie
+from imdb_api.views.user_panel_view import vote_for_movie, toggle_favorite
 from imdb_api.views.movies_view import movie_search, movies_by_genre
 
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path('recommendations/', user_recommendations, name='user_recommendations'),
     path('vote_for_movie/<int:movie_id>/', vote_for_movie, name='vote_for_movie'),
+    path('toggle_favorite/<int:movie_id>/', toggle_favorite, name='toggle_favorite'),
 
     # path for all movie infos.
     path('all_movies/', all_movies, name='all_movies'),

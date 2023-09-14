@@ -4,6 +4,7 @@ from django.http import Http404
 from django.shortcuts import render
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.trailer_model import TrailerVideo
+from imdb_api.models.user_favorite_model import UserFavorite
 
 # creating movie views
 
@@ -33,8 +34,8 @@ def all_movies(request):
         'movies5': movies[16:20],
         'movies6': movies[20:24],
      }
-    print('context:', context)
-    print('request:', request)
+    # print('context:', context)
+    # print('request:', request)
     return render(request, "core/all_movies.html", context)
 
 def new_movies(request):
@@ -47,8 +48,8 @@ def new_movies(request):
         'movies11': movies[40:44],
         'movies12': movies[44:48],
      }
-    print('context:', context)
-    print('request:', request)
+    # print('context:', context)
+    # print('request:', request)
     return render(request, "core/new_movies.html", context)
 
 def movie_details(request, movie_id):
@@ -63,15 +64,31 @@ def movie_details(request, movie_id):
 
 
 def movie_details_with_trailers(request, movie_id):
-    # Get the movie with the given id
     try:
         movie = get_object_or_404(Movie, pk=movie_id)
         trailer_videos = TrailerVideo.objects.filter(movie=movie)
     except Movie.DoesNotExist:
-
         raise Http404("Movie does not exist")
+
+    is_favorite = False  # Initialize as False by default
+
+    if request.user.is_authenticated:
+        # Check if the movie is in the user's favorites
+        if UserFavorite.objects.filter(user=request.user, movie=movie).exists():
+            is_favorite = True
+
+    return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos, 'is_favorite': is_favorite})
+
+# def movie_details_with_trailers(request, movie_id):
+#     # Get the movie with the given id
+#     try:
+#         movie = get_object_or_404(Movie, pk=movie_id)
+#         trailer_videos = TrailerVideo.objects.filter(movie=movie)
+#     except Movie.DoesNotExist:
+
+#         raise Http404("Movie does not exist")
     
-    return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos})
+#     return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos})
 
 
 def movie_search(request):
