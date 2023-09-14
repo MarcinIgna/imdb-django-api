@@ -37,6 +37,20 @@ def all_movies(request):
     print('request:', request)
     return render(request, "core/all_movies.html", context)
 
+def new_movies(request):
+    movies = Movie.objects.all()
+    context = {
+        'movies7': movies[24:28],
+        'movies8': movies[28:32],
+        'movies9': movies[32:36],
+        'movies10': movies[36:40],
+        'movies11': movies[40:44],
+        'movies12': movies[44:48],
+     }
+    print('context:', context)
+    print('request:', request)
+    return render(request, "core/new_movies.html", context)
+
 def movie_details(request, movie_id):
     # Get the movie with the given id
     try:

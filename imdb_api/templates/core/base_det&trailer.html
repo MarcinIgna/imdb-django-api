@@ -12,7 +12,7 @@
 
 <body
     style="background: rgba(0,0,0,0.7)url('{{ movie.poster_url }}'); background-size: cover; background-blend-mode: darken; background-position: center;">
-    {% include 'core/dash_navbar.html' %}
+    {% include 'core/base_navbar.html' %}
 
     <div class="container mt-4">
         <div class="row">
@@ -33,7 +33,7 @@
                     {% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
-                <button id="favorite-button" data-movie-id="{{ movie.id }}" data-is-favorite="{{ is_favorite }}" style="background-color: red;">
+                <button id="favorite-button" data-movie-id="{{ movie.id }}" data-is-favorite="{{ is_favorite }}" style="background-color: goldenrod;">
                     {% if is_favorite %}
                         Remove from Favorites
                     {% else %}

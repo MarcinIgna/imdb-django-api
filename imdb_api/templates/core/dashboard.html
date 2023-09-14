@@ -13,82 +13,13 @@
 </head>
 
 <body class="base">
+    {% include 'core/dash_navbar.html' %}
 
-    <nav class="navbar navbar-expand-sm navbar-dark bg-black">
-        <div class="container">
-            <!-- Logo that redirects to homepage -->
-            <a href="{% url 'imdb:dashboard' %}"
-                class="navbar-brand mb-0 h1" style="text-decoration: none;">
-                <img class="d-inline-block align-top" style="text-decoration: none;"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjf_E8CVqOjyb8QTPMQzWEGszfznS4T8VRnA&usqp=CAU"
-                    width="50" height="35" />
-                MoviePMB
-            </a>
-            <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
 
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a href="#" class="nav-link active" style="text-decoration: none;">
-                            HOME
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link 
-                        dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" style="text-decoration: none;">
-                            GENRES
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a href="#" class="dropdown-item">Action</a></li>
-                            <li><a href="#" class="dropdown-item">Romance</a></li>
-                            <li><a href="#" class="dropdown-item">Thriller</a></li>
-                            <li><a href="#" class="dropdown-item">Adventure</a></li>
-                            <li><a href="#" class="dropdown-item">Western</a></li>
-                            <li><a href="#" class="dropdown-item">Fantasy</a></li>
-                            <li><a href="#" class="dropdown-item">Family</a></li>
-                            <li><a href="#" class="dropdown-item">Animation</a></li>
-                            <li><a href="#" class="dropdown-item">Comedy</a></li>
-                            <li><a href="#" class="dropdown-item">War</a></li>
-                            <li><a href="#" class="dropdown-item">History</a></li>
-                            <li><a href="#" class="dropdown-item">Crime</a></li>
-                            <li><a href="#" class="dropdown-item">Drama</a></li>
-                        </ul>
-
-                    </li>
-                    <li class="nav-item active">
-                        <a href="#" class="nav-link" style="text-decoration: none;">
-                            MOVIES
-                        </a>
-
-                    </li>            
-                </ul>
-                <div class="box">
-                    <input type="text" placeholder="Search...">
-                    <a href="#">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="navbar-nav user-name">
-                <p style="color: white; margin-right: 25px;">{{ user }}</p>
-            </div>
-
-            <div class="navbar-nav logout-button">
-                <button class="btn btn-outline-light"
-                    style="background-color: red; border-color: red; color: white; border-radius: 30px;">
-                    <a href="{% url 'imdb:logout' %}" style="text-decoration: none; color: inherit;">Logout</a>
-                </button>
-            </div>
-
-            
-        </div>
-    </nav>
 
     {% include 'core/all_movies.html' %}
+
+    {% include 'core/movie_carousel.html' %}
 
     <!-- Navbar Bootstrap Js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
