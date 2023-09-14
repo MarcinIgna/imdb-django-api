@@ -94,6 +94,7 @@ class CommentView(View):
 """
 # it is just how it could work we will see     
 def toggle_favorite(request, movie_id):
+    print("toggle_favorite view executed")
     if request.user.is_authenticated:
         movie = Movie.objects.get(pk=movie_id)
         user = request.user
@@ -105,9 +106,10 @@ def toggle_favorite(request, movie_id):
         except UserFavorite.DoesNotExist:
             UserFavorite.objects.create(user=user, movie=movie)
             is_favorite = True
-
+        print('is_favorite:', is_favorite)
         return JsonResponse({"success": True, "is_favorite": is_favorite})
     else:
+        print("User not authenticated")
         return JsonResponse({"success": False, "message": "User not authenticated"})
     
     
