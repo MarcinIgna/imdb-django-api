@@ -6,12 +6,28 @@ from django.http import Http404
 from django.shortcuts import render
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.trailer_model import TrailerVideo
-from django.views.generic import ListView
+from imdb_api.models.user_favorite_model import UserFavorite
 from imdb_api.forms.search_form import MovieSearchForm
 
 # creating movie views
 
+
+
+"""
+
+<li><a href="{% url 'imdb:movies_by_genre' 'Action' %}" class="dropdown-item">Action</a></li>
+<li><a href="{% url 'imdb:movies_by_genre' 'Romance' %}" class="dropdown-item">Romance</a></li>
+<li><a href="{% url 'imdb:movies_by_genre' 'Thriller' %}" class="dropdown-item">Thriller</a></li>
+
+"""
+def movies_by_genre(request, genre):
+    # Filter movies based on the selected genre
+    movies = Movie.objects.filter(genre__icontains=genre)
+
+    return render(request, 'html with movie list', {'movies': movies, 'genre': genre})
+    
 def all_movies(request):
+    # All movies
     movies = Movie.objects.all()
     context = {
         'movies1': movies[:4],
@@ -40,6 +56,7 @@ def new_movies(request):
     return render(request, "core/new_movies.html", context)
 
 def movie_details(request, movie_id):
+    # Get the movie with the given id
     try:
         movie = get_object_or_404(Movie, pk=movie_id)
         trailer_videos = TrailerVideo.objects.filter(movie=movie)
@@ -54,10 +71,16 @@ def movie_details_with_trailers(request, movie_id):
         movie = get_object_or_404(Movie, pk=movie_id)
         trailer_videos = TrailerVideo.objects.filter(movie=movie)
     except Movie.DoesNotExist:
-
         raise Http404("Movie does not exist")
-    
-    return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos})
+
+    is_favorite = False  # Initialize as False by default
+
+    if request.user.is_authenticated:
+        # Check if the movie is in the user's favorites
+        if UserFavorite.objects.filter(user=request.user, movie=movie).exists():
+            is_favorite = True
+
+    return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos, 'is_favorite': is_favorite})
 
 
 def movie_search(request):
