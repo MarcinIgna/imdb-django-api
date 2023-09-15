@@ -76,12 +76,12 @@
         $(document).ready(function() {
             // Include the CSRF token
             const csrfToken = "{{ csrf_token }}";
-
+            console.log("random string1");
             $('#favorite-button').on('click', function() {
                 // Retrieve data attributes
                 var movieId = $(this).data('movie-id');
                 var isFavorite = $(this).data('is-favorite');
-
+                console.log("random string2");
                 // Perform your AJAX request here
                 $.ajax({
                     url: `/toggle_favorite/${movieId}/`,
