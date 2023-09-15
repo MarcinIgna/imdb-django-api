@@ -1,29 +1,75 @@
-<!-- movie picker -->
-{% load static %}
-<!doctype html>
-<html lang="en">
+<!-- new movies -->
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>New Movies</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-</head>
-
-<body style="background-color: black;">
-    <center>
-        <h2>
-            <font color="white">New Movies</font>
-        </h2>
-    </center>
-    <br>
-
-    {% include 'core/movie_carousel.html' %}
-
-    <!-- Include jQuery before Bootstrap JavaScript -->
-    {% include 'core/javascript_carousel.html' %}
-</body>
-
-</html>
+    <!-- MAIN CONTAINER -->
+    <div id="carouselExampleControl2" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    {% for mv13 in movies13 %}
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv13.pk %}"><img src="{{ mv13.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv14 in movies14 %}
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv14.pk %}"><img src="{{ mv14.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv15 in movies15 %}
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv15.pk %}"><img src="{{ mv15.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv16 in movies16 %}
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv16.pk %}"><img src="{{ mv16.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv17 in movies17 %}
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv17.pk %}"><img src="{{ mv17.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    {% for mv18 in movies18 %}
+                    <div class="col">
+                        <a href="{% url 'imdb:detail&trailer' movie_id=mv18.pk %}"><img src="{{ mv18.poster_url }}"
+                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControl2" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControl2" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>

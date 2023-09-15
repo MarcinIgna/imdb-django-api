@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link active" style="text-decoration: none;">
+                    <a href="{% url 'imdb:frontpage' %}" class="nav-link active" style="text-decoration: none;">
                         HOME
                     </a>
                 </li>
@@ -48,14 +48,15 @@
                     </a>
                 </li>
             </ul>
-            <form method="GET" action="{% url 'imdb:movie_search' %}">
-                <div class="box">
-                    <input type="text" name="query" placeholder="Search...">
-                    <button type="submit">
-                        <i class="fa fa-search"></i> Search
-                    </button>
-                </div>
-            </form>
+            <div class="box">
+                <form action="{% url 'imdb:movie_search' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="search_term" placeholder="Search...">
+                </form>
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
         </div>
         <div>
             <button class="btn btn-outline-light" style="border-color: gold; border-radius: 30px;"><a href="/login" style="text-decoration: none; color: inherit;">Sign In</a></button>

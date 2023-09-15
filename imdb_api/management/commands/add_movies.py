@@ -34,7 +34,7 @@ class Command(BaseCommand):
         tmdb.API_KEY = os.environ.get('TMDB_API_KEY')
 
         page = 1
-        max_pages = 3  # Set the maximum number of pages to fetch (adjust as needed)
+        max_pages = 4  # Set the maximum number of pages to fetch (adjust as needed)
         counter = 0
 
         while page <= max_pages:
@@ -46,7 +46,7 @@ class Command(BaseCommand):
                 raise e
 
             for movie_info in top_movies['results']:
-                if counter >= 40:
+                if counter >= 80:
                     break
 
                 # Check if the movie already exists in the database
