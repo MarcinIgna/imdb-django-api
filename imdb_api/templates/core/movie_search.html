@@ -6,10 +6,18 @@
 <h2 style="color: goldenrod;">Movie Search Results</h2>
     <ul>
         {% for movie in movies %}
-        <li><img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="100">{{ movie.title }}</li>
+        
+        <li>
+            <a href="{% url 'imdb:movie_details' movie.id %}">
+                <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="200">{{ movie.title }}
+            </a></li>
+                
         {% endfor %}
     </ul>
     {% else %}
         <p style="color: whitesmoke">No movies found matching your search.</p>
 {% endif %}
+
+{% include 'core/footer.html' %}
+
 {% endblock %}

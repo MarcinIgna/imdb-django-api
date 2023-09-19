@@ -1,11 +1,3 @@
 .base {
     background-color: black !important;
 }
-
-.background-image {
-    background-image: url(https://images.unsplash.com/photo-1571795184552-5f1df723de54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWlsaXRhcnl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Optional, to fix the background while scrolling */
-    background-position: right top; /* Adjusts the position to the right top corner */
-}
