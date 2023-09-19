@@ -1,6 +1,6 @@
 # imdb(like)-django-recomendation-api
 
-![Front page](front_page.png)
+![Front page](front_site.png)
 
 ## Features
 
