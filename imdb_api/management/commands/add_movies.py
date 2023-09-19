@@ -6,6 +6,7 @@ import httpx
 from django.core.management.base import BaseCommand
 import django
 import tmdbsimple as tmdb
+
 from imdb_api.models.movie_model import Movie
 
 class Command(BaseCommand):
@@ -51,7 +52,7 @@ class Command(BaseCommand):
 
                 # Check if the movie already exists in the database
                 if Movie.objects.filter(tmdb_id=movie_info['id']).exists():
-                    print(f"Movie '{movie_info['title']}' already exists in the database. Skipping.")
+                    # print(f"Movie '{movie_info['title']}' already exists in the database. Skipping.")
                     continue
 
                 # Create or get the movie
@@ -73,7 +74,7 @@ class Command(BaseCommand):
                             'video': movie_info['video'],
                         }
                     )
-                    print(f"Added movie '{movie_info['title']}' to the database.")
+                    # print(f"Added movie '{movie_info['title']}' to the database.")
                 except Exception as e:
                     logging.error(f"Error creating or getting movie: {e}")
                     continue

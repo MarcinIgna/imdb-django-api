@@ -1,6 +1,7 @@
 import os
 from django.core.management.base import BaseCommand
 import tmdbsimple as tmdb
+
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.genre_model import Genre
 

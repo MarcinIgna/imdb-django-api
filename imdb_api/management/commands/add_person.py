@@ -1,9 +1,11 @@
 import os
 import tmdbsimple as tmdb
 from tmdbsimple import People
+from django.core.management.base import BaseCommand
+
 from imdb_api.models.person_model import Person
 from imdb_api.models.movie_model import Movie
-from django.core.management.base import BaseCommand
+
 
 # Set your TMDB API key
 tmdb.API_KEY = os.environ.get('TMDB_API_KEY')
@@ -23,7 +25,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Set the number of pages you want to fetch (each page has 20 results)
-        num_pages = 100
+        num_pages = 2
 
         for page in range(1, num_pages + 1):
             # Fetch people from TMDb (example: top-rated actors)
