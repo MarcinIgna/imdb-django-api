@@ -1,5 +1,7 @@
 # imdb(like)-django-recomendation-api
 
+![Front page](front_page.png)
+
 ## Features
 
 - Django-based user friendly project for accessing data.
