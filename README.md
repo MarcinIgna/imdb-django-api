@@ -10,7 +10,7 @@
   - Admins: Full access to CRUD operations.(html in progress)
   - Registered Users: Access to read IMDb data.
   - Authenticated Users: 
-    - Can create thier own favorite movie list and later get personal recomandation.
+    - Can create thier own favorite movie list and later get personal recommendation.
     - Can rate movies (html in progress).
     - Can comment movies (html in progress).
   - Anonymous Users: Limited access.
