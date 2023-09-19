@@ -1,4 +1,4 @@
-# imdb(like)-django-recomendation-api
+# MoviePMB
 
 ![Front page](front_site.png)
 
