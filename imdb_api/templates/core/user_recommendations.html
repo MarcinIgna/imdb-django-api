@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Recommended Movies</title>
-</head>
-<body>
+{% extends 'core/dash_base.html' %}
+
+{% block title %}Dashboard | {% endblock %}
+
+{% block content %}
+
     {% if message %}
         <p>{{ message }}</p>
     {% else %}
-        <h1>Recommended Movies:</h1>
+        <h1 style="color: white;">Recommended Movies:</h1>
         <ul>
             {% for movie in recommendations %}
-                <li>{{ movie.title }}</li>
+                <li style="color: whitesmoke;"><a href="{% url 'imdb:detail&trailer' movie.id %}">
+                    <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="200">{{ movie.title }}
+                </a></li>
             {% endfor %}
         </ul>
     {% endif %}
-</body>
-</html>
+
+    {% include 'core/footer.html' %}
+
+{% endblock %}
