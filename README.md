@@ -2,8 +2,8 @@
 
 ## Features
 
-- Django-based REST API for accessing data.
-- Our IMDb Django REST API project retrieves and updates movie data from [The Movie Database (TMDb) API](https://developer.themoviedb.org/reference/intro/getting-started). This third-party integration allows us to keep our database up-to-date with the latest movie information.
+- Django-based user friendly project for accessing data.
+- Our IMDb(like) Django project retrieves and updates movie data from [The Movie Database (TMDb) API](https://developer.themoviedb.org/reference/intro/getting-started). This third-party integration allows us to keep our database up-to-date with the latest movie information.
 - Multi-role authentication:
   - Admins: Full access to CRUD operations.(html in progress)
   - Registered Users: Access to read IMDb data.
