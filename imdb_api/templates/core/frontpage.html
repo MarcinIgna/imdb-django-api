@@ -3,17 +3,21 @@
 {% block title %}Welcome | {% endblock %}
 
 {% block content %}
+
 <div class="background-image">
-    <div class="p-10 lg:p-20 text-center">
+    <div class="p-10 lg:p-20">
         <h1 style="color: goldenrod;">Welcome to MoviePMB</h1>
         <h3 style="color: white;">Discover Latest Movies, <br> Tv Shows & More.</h3>
-    
+
+
     </div>
-    <div>
-        {% include 'core/movie_carousel.html' %}
+    <div class="container text-center">
+        <h2 style="color:goldenrod">New Release</h2>
+        {% include 'core/new_release.html' %} <br><br>
+        {% include 'core/award_movies.html' %}
     </div>
-    {% include 'core/footer.html' %}
 </div>
+{% include 'core/footer.html' %}
 
 
 {% endblock %}

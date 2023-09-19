@@ -1,11 +1,31 @@
-    <!-- MAIN CONTAINER -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    {% for mv7 in movies7 %}
-                    <div class="col">
-                        <a href="{% url 'imdb:detail&trailer' movie_id=mv7.pk %}"><img src="{{ mv7.poster_url }}"
+<!-- Award winning movies-->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row">
+                {% for mv12 in movies12 %}
+                <div class="col">
+                    <a href="{% url 'imdb:movie_details' movie_id=mv12.pk %}"><img src="{{ mv12.poster_url }}"
+                            class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row">
+                {% for mv11 in movies11 %}
+                <div class="col">
+                    <a href="{% url 'imdb:movie_details' movie_id=mv11.pk %}"><img src="{{ mv11.poster_url }}"
+                            class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row">
+                {% for mv7 in movies7 %}
+                <div class="col">
+                        <a href="{% url 'imdb:movie_details' movie_id=mv7.pk %}"><img src="{{ mv7.poster_url }}"
                                 class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
@@ -15,17 +35,7 @@
                 <div class="row">
                     {% for mv8 in movies8 %}
                     <div class="col">
-                        <a href="{% url 'imdb:detail&trailer' movie_id=mv8.pk %}"><img src="{{ mv8.poster_url }}"
-                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row">
-                    {% for mv9 in movies9 %}
-                    <div class="col">
-                        <a href="{% url 'imdb:detail&trailer' movie_id=mv9.pk %}"><img src="{{ mv9.poster_url }}"
+                        <a href="{% url 'imdb:movie_details' movie_id=mv8.pk %}"><img src="{{ mv8.poster_url }}"
                                 class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
@@ -35,7 +45,7 @@
                 <div class="row">
                     {% for mv10 in movies10 %}
                     <div class="col">
-                        <a href="{% url 'imdb:detail&trailer' movie_id=mv10.pk %}"><img src="{{ mv10.poster_url }}"
+                        <a href="{% url 'imdb:movie_details' movie_id=mv10.pk %}"><img src="{{ mv10.poster_url }}"
                                 class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}
@@ -43,19 +53,9 @@
             </div>
             <div class="carousel-item">
                 <div class="row">
-                    {% for mv11 in movies11 %}
+                    {% for mv9 in movies9 %}
                     <div class="col">
-                        <a href="{% url 'imdb:detail&trailer' movie_id=mv11.pk %}"><img src="{{ mv11.poster_url }}"
-                                class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row">
-                    {% for mv12 in movies12 %}
-                    <div class="col">
-                        <a href="{% url 'imdb:detail&trailer' movie_id=mv12.pk %}"><img src="{{ mv12.poster_url }}"
+                        <a href="{% url 'imdb:movie_details' movie_id=mv9.pk %}"><img src="{{ mv9.poster_url }}"
                                 class="img-thumbnail" alt="first slide" width="100%" style="padding: 10px"></a>
                     </div>
                     {% endfor %}

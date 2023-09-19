@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from imdb_api.models.movie_model import Movie
 from django.http import Http404
@@ -5,6 +7,7 @@ from django.shortcuts import render
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.trailer_model import TrailerVideo
 from imdb_api.models.user_favorite_model import UserFavorite
+from imdb_api.forms.search_form import MovieSearchForm
 
 # creating movie views
 
@@ -79,24 +82,15 @@ def movie_details_with_trailers(request, movie_id):
 
     return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos, 'is_favorite': is_favorite})
 
-# def movie_details_with_trailers(request, movie_id):
-#     # Get the movie with the given id
-#     try:
-#         movie = get_object_or_404(Movie, pk=movie_id)
-#         trailer_videos = TrailerVideo.objects.filter(movie=movie)
-#     except Movie.DoesNotExist:
-
-#         raise Http404("Movie does not exist")
-    
-#     return render(request, 'core/detail&trailer.html', {'movie': movie, 'trailers': trailer_videos})
-
 
 def movie_search(request):
-    query = request.GET.get('query')
-    movies = []  # Change this variable name to 'movies'
+    if request.method == 'POST':
+        form = MovieSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data['search_term']
+            # query the database for movies that match the search term
+            movies = Movie.objects.filter(title__icontains=search_term)
+            return render(request, 'core/movie_search.html', {'movies': movies})
+    form = MovieSearchForm()
+    return render(request, 'core/movie_search.html', {'form': form})
 
-    if query:
-        # Perform a case-insensitive search on the Movie model
-        movies = Movie.objects.filter(title__icontains=query)
-
-    return render(request, 'core/movie_search_results.html', {'movies': movies})
