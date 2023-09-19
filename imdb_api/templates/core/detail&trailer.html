@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     {% include 'core/css_link.html' %}
+    {% include 'core/javascript_link.html' %}
 </head>
 <body style="background: rgba(0,0,0,0.7)url('{{ movie.poster_url }}'); background-size: cover; background-blend-mode: darken; background-position: center;">
     {% include 'core/dash_navbar.html' %}
@@ -30,13 +32,15 @@
                     {% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
-                <button id="favorite-button" data-movie-id="{{ movie.id }}" data-is-favorite="{{ is_favorite }}" style="background-color: red;">
-                    {% if is_favorite %}
+                <div class="btn-group" role="group" aria-label="Favorite Button">
+                    <button type="button" class="btn btn-primary {% if is_favorite %}active{% endif %}" data-movie-id="{{ movie.id }}" data-is-favorite="{{ is_favorite }}" data-bs-toggle="button" aria-pressed="{{ is_favorite|yesno:'true,false' }}">
+                      {% if is_favorite %}
                         Remove from Favorites
-                    {% else %}
+                      {% else %}
                         Add to Favorites
-                    {% endif %}
-                </button>
+                      {% endif %}
+                    </button>
+                  </div>
             </div>
         </div>
         <br>
@@ -62,53 +66,5 @@
 
     {% include 'core/footer.html' %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
-
-    <!-- Add jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+Jz6p6v8pZc8HR4p1z4Ck5Mz5pmt5f5z5w5Ck5Mz5pmt5f5z5w"
-        crossorigin="anonymous"></script>
-
-    <!-- JavaScript for Favorite Button -->
-    <script>
-        $(document).ready(function() {
-            // Include the CSRF token
-            const csrfToken = "{{ csrf_token }}";
-            console.log("random string1");
-            $('#favorite-button').on('click', function() {
-                // Retrieve data attributes
-                var movieId = $(this).data('movie-id');
-                var isFavorite = $(this).data('is-favorite');
-                console.log("random string2");
-                // Perform your AJAX request here
-                $.ajax({
-                    url: `/toggle_favorite/${movieId}/`,
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRFToken': csrfToken,
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            // Handle success, update button text or style
-                            if (response.is_favorite) {
-                                $('#favorite-button').text('Remove from Favorites');
-                            } else {
-                                $('#favorite-button').text('Add to Favorites');
-                            }
-                        } else {
-                            // Handle errors, e.g., display a message to the user
-                            console.error(response.message);
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        console.error('Error:', errorThrown);
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
