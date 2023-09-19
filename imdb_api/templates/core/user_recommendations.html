@@ -5,11 +5,15 @@
     <title>Recommended Movies</title>
 </head>
 <body>
-    <h1>Recommended Movies:</h1>
-    <ul>
-        {% for movie in recommendations %}
-            <li>{{ movie.title }}</li>
-        {% endfor %}
-    </ul>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        <h1>Recommended Movies:</h1>
+        <ul>
+            {% for movie in recommendations %}
+                <li>{{ movie.title }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
