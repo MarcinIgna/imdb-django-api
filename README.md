@@ -82,13 +82,11 @@ Our recommendation algorithm is designed to enhance your movie discovery experie
 1. Create the database schema by running migrations:
 
    ```shell
-   python manage.py migrate
+   python manage.py makemigrations
    ```
 
-2. Load initial data (optional):
-
    ```shell
-   python manage.py loaddata initial_data.json
+   python manage.py migrate
    ```
 
 ## Running Custom Scripts
