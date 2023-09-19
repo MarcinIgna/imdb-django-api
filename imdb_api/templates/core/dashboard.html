@@ -1,38 +1,22 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
+{% extends 'core/dash_base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ user}}'s Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    {% include 'core/css_link.html' %}
-    <!-- Add inline CSS for body background color -->
-</head>
+{% block title %}Dashboard | {% endblock %}
 
-<body class="base">
-    {% include 'core/dash_navbar.html' %}
-    <div class="container text-center">
-        <h2 style="color:goldenrod"> Top Rated Movies</h2>
-        {% include 'core/top_rated.html' %}
-    </div>
-    <br><br>
+{% block content %}
+
+<div class="container text-center">
+    <h2 style="color: whitesmoke; font-size: 3rem; font-weight: bold;"> Top Rated Movies</h2>
+    {% include 'core/top_rated.html' %}
+</div>
+<br><br>
 
 
 
-    <div class="container text-center">
-        <h2 style="color: gold"> New Movies</h2>
-        {% include 'core/new_movies.html' %}
-    </div>
+<div class="container text-center">
+    <h2 style="color: whitesmoke; font-size: 3rem; font-weight: bold;"> New Movies</h2>
+    {% include 'core/new_movies.html' %}
+</div>
 
+{% include 'core/footer.html' %}
 
-
-
-    {% include 'core/footer.html' %}
-    {% include 'core/javascript_link.html' %}
-</body>
-
-
-</html>
+{% endblock %}

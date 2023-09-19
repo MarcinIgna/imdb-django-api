@@ -10,7 +10,7 @@ from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
 from imdb_api.views.user_recommendations import user_recommendations
 from imdb_api.views.user_panel_view import vote_for_movie, toggle_favorite
-from imdb_api.views.movies_view import movie_search, movies_by_genre
+from imdb_api.views.movies_view import movie_search, movies_by_genre, dash_movie_search
 
 
 app_name = "imdb"
@@ -20,6 +20,7 @@ urlpatterns = [
     # path for user dashboard
     path("dashboard/", dashboard, name='dashboard'),
     path('movie_search/', movie_search, name='movie_search'),
+    path('dash_movie/', dash_movie_search, name='dash_movie_search'),
     path('movies-by-genre/<str:genre>/', movies_by_genre, name='movies_by_genre'),
 
     # path for Signup, Login, Logout

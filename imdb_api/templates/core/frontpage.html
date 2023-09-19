@@ -3,21 +3,43 @@
 {% block title %}Welcome | {% endblock %}
 
 {% block content %}
+<style>
+    .hero{
+        width:100%; height: 600px; background-color: pink;
+        background-image: url('https://images.unsplash.com/photo-1601925662822-510b76665bd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80');
+        background-size: cover;
+        background-position: center;
+    }
+    .hero > h3 {
+        font-size: 3rem; color:goldenrod; font-weight: bold;
+        position: absolute;top:4rem; width:100%; height:600px;
+        padding:1em;
+        background-image: linear-gradient(to right, 
+        rgba(0,0,0,1),
+        rgba(0,0,0,1),
+        rgba(0,0,0,.6),
+        rgba(0,0,0,.4),
+        rgba(0,0,0,0));
+    }
 
-<div class="background-image">
-    <div class="p-10 lg:p-20">
-        <h1 style="color: goldenrod;">Welcome to MoviePMB</h1>
-        <h3 style="color: white;">Discover Latest Movies, <br> Tv Shows & More.</h3>
 
 
+
+</style>
+    <div class="row">
+        <section class="hero">
+                <h3>MoviePMB <br><br><span style="color: white;">Discover Latest </span><span style="color: goldenrod;" >Movies,</span><br>
+                <span style="color: white;"> TV Show's & Lots of More.</span></h3>
+                
+        </section>
     </div>
     <div class="container text-center">
-        <h2 style="color:goldenrod">New Release</h2>
+        <h2 style="color: whitesmoke; font-size: 3rem; font-weight: bold;">New Release</h2>
         {% include 'core/new_release.html' %} <br><br>
         {% include 'core/award_movies.html' %}
     </div>
-</div>
-{% include 'core/footer.html' %}
+
+
 
 
 {% endblock %}
