@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from imdb_api.models.movie_model import Movie
+from django.contrib.auth.models import User
+from imdb_api.models.genre_model import Genre
 
 
 def frontpage(request):
@@ -35,3 +37,14 @@ def dashboard(request):
     }
     return render(request, 'core/dashboard.html', context)
 
+@login_required(login_url='imdb:login')
+def admin_dashboard(request):
+    users = User.objects.all()
+    genres = Genre.objects.all()
+    movies = Movie.objects.all()
+    context = {
+        'users': users,
+        'genres': genres,
+        'movies': movies,
+    }
+    return render(request, 'admin/admin_dashboard.html', context)

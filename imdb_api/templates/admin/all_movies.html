@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h1>All Movies</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>tmdb_id</th>
+        <th>Title</th>
+        <th>Release Year</th>
+        <th>Runtime</th>
+        <th>Genres</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for movie in movies %}
+        <tr>
+            <td>{{ movie.id }}</td>
+            <td>{{ movie.tmdb_id }}</td>
+          <td>{{ movie.title }}</td>
+          <td>{{ movie.release_year }}</td>
+          <td>{{ movie.runtime }}</td>
+          <td>
+            {% for genre in movie.genres.all %}
+              {{ genre.name }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              No genres found.
+            {% endfor %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No movies found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -7,8 +7,11 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class MovieView(APIView):
+
     authentication_classes = [TokenAuthentication]
+
     permission_classes = [IsAuthenticated]
+
     def get(self, request, pk=None):
         if pk is not None:
             movie = Movie.objects.get(pk=pk)
@@ -16,6 +19,7 @@ class MovieView(APIView):
             return Response(serializer.data)
         
         elif pk is None:
+            print(request.user.username)
             movie = Movie.objects.all()
             serializer = MovieSerializer(movie, many=True)
             return Response(serializer.data)

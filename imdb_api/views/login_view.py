@@ -15,9 +15,9 @@ def login_view(request):
                 print("User authenticated successfully")
                 
                 # Check if the user is staff
-                if user.is_staff:
+                if user.is_staff or user.is_superuser:
                     # Redirect to the admin panel for staff users
-                    return redirect('admin_panel_url_name')  
+                    return redirect('imdb:admin_dashboard')  
                 else:
                     # Redirect to the logged in page for normal users
                     return redirect('imdb:dashboard') 
