@@ -1,42 +1,48 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponseForbidden, HttpResponseNotFound
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib import messages
 from django.conf import settings
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-import json
 
-from imdb_api.models.movie_model import Movie
+import json
+from django.contrib.auth.decorators import login_required
+
+
 from imdb_api.forms.comment_form import CommentForm
+from imdb_api.forms.movie_vote_form import MovieVoteForm
+from imdb_api.forms.user_panel_update_form import UserUpdateForm
 from imdb_api.models.comment_model import Comment
+from imdb_api.models.movie_model import Movie
 from imdb_api.models.user_favorite_model import UserFavorite
 from imdb_api.models.user_vote_model import MovieVote
+
 from imdb_api.utils import update_movie_vote_average
-from imdb_api.forms.movie_vote_form import MovieVoteForm
 
 
-def update_user_profile(request):
+
+
+@login_required
+def user_update_profile(request):
     """
-    This view is used to update the user's profile.
+    This view is used to update the user's own profile.
     """
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
+        form = UserUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your profile has been updated successfully.')
             # Redirect to the user's profile page or any other appropriate page
-            return redirect("user_profile")  # Adjust the URL name as needed
+            return redirect("imdb:dashboard")  # Adjust the URL name as needed
         else:
             messages.error(request, 'There was an error in the form. Please correct it.')
 
     else:
-        form = UserChangeForm(instance=request.user)
+        form = UserUpdateForm(instance=request.user)
     
     # Render the form in the template for users to update their profile
-    return render(request, 'profile_update.html', {'form': form})
-
+    return render(request, 'core/user_update_profile.html', {'form': form})
 
 class CommentView(View):
     """ 
