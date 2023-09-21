@@ -141,8 +141,8 @@ REST_FRAMEWORK = {
 }
 
 #bucket settings
-# USE_S3_SETUP = os.environ.get("USE_S3_SETUP", False)
-USE_S3_SETUP = False
+USE_S3_SETUP = os.environ.get("USE_S3_SETUP", False)
+# USE_S3_SETUP = False
 
 if USE_S3_SETUP:
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
