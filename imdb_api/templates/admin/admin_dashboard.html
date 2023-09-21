@@ -1,7 +1,7 @@
-{% extends 'core/base.html' %}
+{% extends 'core/dash_base.html' %}
 
 {% block content %}
-  <h1>Admin Dashboard</h1>
+  <h1 style="color: goldenrod;">Admin Dashboard</h1>
   <ul>
     <li><a href="{% url 'imdb:update_profile' user_id=1 %}">Update User Profile</a></li>
     <li><a href="{% url 'imdb:see_all_users' %}">See All Users</a></li>

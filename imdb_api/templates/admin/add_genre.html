@@ -1,10 +1,10 @@
-{% extends 'core/base.html' %}
+{% extends 'core/dash_base.html' %}
 
 {% block content %}
-  <h1>Add Genre</h1>
-  <form method="post">
+  <h1 style="color: goldenrod;">Add Genre</h1>
+  <form method="post" style="color: whitesmoke; padding: 15px;">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Add Genre</button>
+    <button class="btn btn-warning" type="submit">Add Genre</button>
   </form>
 {% endblock %}

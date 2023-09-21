@@ -1,25 +1,26 @@
-{% extends 'core/base.html' %}
+{% extends 'core/dash_base.html' %}
 
 {% block content %}
-  <h1>All Genres</h1>
+  <h1 style="color: goldenrod;">All Genres</h1>
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th style="color: whitesmoke; padding: 15px;">ID</th>
+        <th style="color: whitesmoke; padding: 15px;">Name</th>
       </tr>
     </thead>
     <tbody>
       {% for genre in genres %}
         <tr>
-          <td>{{ genre.id }}</td>
-          <td>{{ genre.name }}</td>
+          <td style="color: whitesmoke">{{ genre.id }}</td>
+          <td style="color: whitesmoke">{{ genre.name }}</td>
         </tr>
       {% empty %}
         <tr>
-          <td colspan="2">No genres found.</td>
+          <td colspan="2" style="color: whitesmoke">No genres found.</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+
 {% endblock %}
