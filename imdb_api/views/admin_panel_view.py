@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.decorators import method_decorator
 
 
 from imdb_api.models.genre_model import Genre
@@ -15,7 +16,9 @@ from imdb_api.forms.movie_form import MovieForm
 
 # all code for admin panel
 
+@method_decorator(login_required, name='dispatch')
 class AdminView(FormView):
+
     @staticmethod
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
@@ -39,19 +42,25 @@ class AdminView(FormView):
         
         # Render the form in the template for the admin to update the user's profile
         return render(request, 'admin/admin_update_profile.html', {'form': form})
-
+    
     @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_users(request):
         users = User.objects.all()
         return  render(request, "admin/all_users.html", {"users": users})
 
     @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_genres(request):
         genres = Genre.objects.all()
         context = {"genres": genres}
         return TemplateResponse(request, "admin/all_genres.html", context)
     
     @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def add_genre(request):
         if request.method == 'POST':
             form = GenreForm(request.POST)
@@ -68,10 +77,15 @@ class AdminView(FormView):
             return TemplateResponse(request, 'admin/add_genre.html', context)
         
     @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_movies(request):
         movies = Movie.objects.all()
         return render(request, "admin/all_movies.html", {"movies": movies})
     
+    @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def add_movie_not_authomatic(request):
         if request.method == 'POST':
             form = MovieForm(request.POST)

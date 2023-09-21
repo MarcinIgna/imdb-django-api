@@ -1,22 +1,52 @@
 {% extends 'core/dash_base.html' %}
-
 {% block title %}Dashboard | {% endblock %}
 
 {% block content %}
-
-    {% if message %}
-        <p>{{ message }}</p>
-    {% else %}
-        <h1 style="color: white;">Recommended Movies:</h1>
-        <ul>
+{% if message %}
+    <p>{{ message }}</p>
+{% else %}
+    <h1 style="color: goldenrod; text-align: center;">Recommended Movies</h1>
+    <div id="movieCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
             {% for movie in recommendations %}
-                <li style="color: whitesmoke;"><a href="{% url 'imdb:detail&trailer' movie.id %}">
-                    <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="200">{{ movie.title }}
-                </a></li>
+                <li data-target="#movieCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
             {% endfor %}
         </ul>
-    {% endif %}
 
-    {% include 'core/footer.html' %}
+        <!-- Slides -->
+        <div class="carousel-inner">
+            {% for movie in recommendations %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <a href="{% url 'imdb:detail&trailer' movie.id %}">
+                        <div class="container">
+                            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" class="img-fluid" style="max-width: 350px; height: auto;">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>{{ movie.title }}</h3>
+                            <p>{{ movie.overview|slice:":65" }}...</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
 
+        <!-- Controls -->
+        <a class="carousel-control-prev" href="#movieCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#movieCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+{% endif %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% include 'core/footer.html' %}
 {% endblock %}

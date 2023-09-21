@@ -1,10 +1,11 @@
-{% extends 'core/base.html' %}
+{% extends 'core/dash_base.html' %}
 
 {% block content %}
-  <h1>Update User Profile</h1>
-  <form method="post">
+  <h1 style="color: goldenrod;">Update User Profile</h1>
+  <form method="post" style="color: whitesmoke;">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Update Profile</button>
+    <button class="btn btn-warning"type="submit">Update Profile</button>
   </form>
+
 {% endblock %}
