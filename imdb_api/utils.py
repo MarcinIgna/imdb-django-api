@@ -7,8 +7,8 @@ from django.db.models import Avg, Count
 
 from imdb_api.models.user_vote_model import MovieVote
 
-if not nltk.data.find('corpora/stopwords'):
-    nltk.download('stopwords')
+
+nltk.download('stopwords')
 
 # Function to preprocess text
 def preprocess_text(text):

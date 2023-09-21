@@ -1,3 +1,6 @@
+env.txt
+systemd_files
+prod_v1.pem
 apis_output.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
