@@ -8,10 +8,12 @@
     {% for movie in movies %}
 
     <li>
-        <a href="{% url 'imdb:detail&trailer' movie.id %}">
-            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="200">{{ movie.title }}
+        <a href="{% url 'imdb:detail&trailer' movie.id %}" style="text-decoration: none; color: white; display: flex; align-items: center;">
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="200" style="margin-right: 10px;">
+            <span style="font-weight: bold;">{{ movie.title }}</span>
         </a>
     </li>
+            
 
     {% endfor %}
 </ul>
