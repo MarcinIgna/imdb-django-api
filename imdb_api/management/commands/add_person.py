@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Set the number of pages you want to fetch (each page has 20 results)
-        num_pages = 2
+        num_pages = 100
 
         for page in range(1, num_pages + 1):
             # Fetch people from TMDb (example: top-rated actors)
