@@ -21,6 +21,10 @@ class MovieCredits(People):
 
 
 class Command(BaseCommand):
+    """
+    line 32 is for seting up how many pages you want to fetch
+    from tmdb on each page have 20 people
+    """
     help = 'Fetch people from TMDb and store them in the database with movie credits'
 
     def handle(self, *args, **kwargs):

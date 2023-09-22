@@ -10,6 +10,11 @@ import tmdbsimple as tmdb
 from imdb_api.models.movie_model import Movie
 
 class Command(BaseCommand):
+    """
+    lines 42-43 are for setting up how many pages you want to fetch
+    each page have 20 movies
+    """
+    
     help = 'Adds movies to the database from TMDB'
 
     # Rate limit: 50 requests per second
