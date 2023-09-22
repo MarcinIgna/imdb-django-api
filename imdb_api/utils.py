@@ -4,6 +4,7 @@ from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from django.db.models import Avg, Count
+import numpy as np
 
 from imdb_api.models.user_vote_model import MovieVote
 
@@ -24,24 +25,20 @@ def preprocess_text(text):
 
     return preprocessed_text
 
-def calculate_tfidf_matrix(movie_overviews):
+def calculate_tfidf_matrix(movie_overviews, movie_genres):
     # Preprocess the movie overviews
     preprocessed_overviews = [preprocess_text(overview) for overview in movie_overviews]
 
-    # Add a print statement to check the preprocessed overviews
-    # print("Preprocessed Overviews:")
-    # for i, overview in enumerate(preprocessed_overviews):
-    #     print(f"{i + 1}: {overview}")
-
-    # Create a TF-IDF vectorizer
+    # Create a TF-IDF vectorizer for the movie overviews
     tfidf_vectorizer = TfidfVectorizer()
+    tfidf_matrix_overviews = tfidf_vectorizer.fit_transform(preprocessed_overviews)
 
-    # Fit and transform the preprocessed movie overviews to calculate TF-IDF scores
-    tfidf_matrix = tfidf_vectorizer.fit_transform(preprocessed_overviews)
+    # Create a TF-IDF vectorizer for the movie genres
+    tfidf_vectorizer = TfidfVectorizer()
+    tfidf_matrix_genres = tfidf_vectorizer.fit_transform(movie_genres)
 
-    # Add print statements to check vocabulary size and feature names
-    # print("Vocabulary Size:", len(tfidf_vectorizer.vocabulary_))
-    # print("Feature Names:", tfidf_vectorizer.get_feature_names_out())
+    # Combine the TF-IDF matrices for the movie overviews and genres
+    tfidf_matrix = np.hstack((tfidf_matrix_overviews.toarray(), tfidf_matrix_genres.toarray()))
 
     # Calculate cosine similarity between TF-IDF vectors
     similarities = cosine_similarity(tfidf_matrix)

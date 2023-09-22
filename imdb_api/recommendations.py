@@ -13,19 +13,21 @@ def get_user_movie_recommendations(user, num_recommendations=10):
     # Fetch the actual Movie objects based on the IDs
     favorite_movies = Movie.objects.filter(id__in=favorite_movie_ids)
 
-    # Extract overviews from favorite movies
+    # Extract overviews and genres from favorite movies
     favorite_movie_overviews = [movie.overview for movie in favorite_movies]
+    favorite_movie_genres = [' '.join(list(movie.genres.values_list('name', flat=True))) for movie in favorite_movies]
+
+    # Print the movie names and genres
+    # for movie, genres in zip(favorite_movies, favorite_movie_genres):
+    #     print(f"{movie.title}: {genres}")
 
     # Calculate TF-IDF matrix and similarities
-    similarities = calculate_tfidf_matrix(favorite_movie_overviews)
-
+    similarities = calculate_tfidf_matrix(favorite_movie_overviews, favorite_movie_genres)
+    print(similarities)
     # Exclude the user's favorite movies from the recommendations
     non_favorite_recommended_movies = Movie.objects.exclude(id__in=favorite_movie_ids)
 
     # Limit the number of recommendations to the specified value
     num_recommendations = min(num_recommendations, non_favorite_recommended_movies.count())
-    recommended_movies = non_favorite_recommended_movies[:num_recommendations]
 
-    return recommended_movies
-
-
+    return non_favorite_recommended_movies[:num_recommendations]
