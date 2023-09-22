@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,7 +80,7 @@ if DATABASE_CHOICE == "sqlite3":
             "NAME": BASE_DIR / "db.sqlite3",
         },
     }
-else:
+elif DATABASE_CHOICE == "postgres":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -90,6 +91,14 @@ else:
             'PORT': os.environ.get("DB_PORT", "5432"),
         },
     }
+else:
+    DATABASES = {
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default= os.environ.get("DATABASE_URL"),
+
+    )
+}
 
 
 # Password validation
