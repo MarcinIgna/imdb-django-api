@@ -92,8 +92,8 @@ Our recommendation algorithm is designed to enhance your movie discovery experie
    ```
 
 ## Running Custom Scripts
-To edit numbers for populating check files add_movies.py/add_person.py in management/command folder.
-To run custom management scripts for populating your database with data, use the following command:
+- To edit numbers for populating check files add_movies.py/add_person.py in management/commands folder.
+- To run custom management scripts for populating your database with data, use the following command:
 
 ```shell
 python manage.py run_custom_scripts
