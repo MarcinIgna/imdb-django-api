@@ -58,6 +58,11 @@ urlpatterns = [
     path("apis/genres/", GenresView.as_view(), name="genres"),
     path("apis/genres/<int:pk>/", GenresView.as_view(), name="genre"),
     
-    
+
+
 ]
+
+    
+    
+
 
