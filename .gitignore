@@ -1,3 +1,4 @@
+db.sqlite3
 env.txt
 systemd_files
 prod_v1.pem
