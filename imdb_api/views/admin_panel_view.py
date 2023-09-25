@@ -7,7 +7,6 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 
-
 from imdb_api.models.genre_model import Genre
 from imdb_api.forms.genre_form import GenreForm
 
@@ -16,7 +15,7 @@ from imdb_api.forms.movie_form import MovieForm
 
 # all code for admin panel
 
-@method_decorator(login_required, name='dispatch')
+
 class AdminView(FormView):
 
     @staticmethod
@@ -42,6 +41,39 @@ class AdminView(FormView):
         
         # Render the form in the template for the admin to update the user's profile
         return render(request, 'admin/admin_update_profile.html', {'form': form})
+    
+    @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
+    def delete_user(request, user_id):
+        """
+        This view is used to delete a user.
+        """
+        user = get_object_or_404(User, id=user_id)
+        if request.method == 'POST':
+            user.delete()
+            messages.success(request, 'The user has been deleted successfully.')
+            return redirect('imdb:see_all_users')
+        else:
+            context = {'user': user}
+            return TemplateResponse(request, 'admin/delete_user.html', context)
+    
+    @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
+    def delete_selected_users(request):
+        """
+        This view is used to delete selected users.
+        """
+        if request.method == 'POST':
+            print(request.POST)
+            user_ids = request.POST.getlist('user_ids')
+            print(user_ids)
+            users = User.objects.filter(id__in=user_ids)
+            print(users)
+            users.delete()
+            messages.success(request, 'The selected users have been deleted successfully.')
+        return redirect('imdb:all_users')
     
     @staticmethod
     @login_required
@@ -79,6 +111,20 @@ class AdminView(FormView):
     @staticmethod
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
+    def delete_genre(request, genre_id):
+        genre = get_object_or_404(Genre, id=genre_id)
+        if request.method == 'POST':
+            genre.delete()
+            messages.success(request, 'The genre has been deleted successfully.')
+            return redirect('imdb:see_all_genres')
+ 
+        else:
+            context = {'genre': genre}
+            return TemplateResponse(request, 'admin/del_genre.html', context)
+        
+    @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_movies(request):
         movies = Movie.objects.all()
         return render(request, "admin/all_movies.html", {"movies": movies})
@@ -95,3 +141,23 @@ class AdminView(FormView):
         else:
             form = MovieForm()
         return render(request, 'admin/add_movie_na.html', {'form': form})
+    
+    @staticmethod
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
+    def delete_movie_genre(request, genre_id):
+        """
+        This view is used to delete a genre from a movie.
+        """
+        genre = get_object_or_404(Genre, id=genre_id)
+        if request.method == 'POST':
+            # Remove the genre from all movies that have it
+            Movie.objects.filter(genres=genre).update(genres=None)
+            # Delete the genre
+            genre.delete()
+            messages.success(request, 'The genre has been deleted successfully.')
+            return redirect('imdb:see_all_genres')
+        else:
+            context = {'genre': genre}
+            return TemplateResponse(request, 'admin/delete_movie_genre.html', context)
+    
