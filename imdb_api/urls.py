@@ -32,8 +32,10 @@ urlpatterns = [
         path('admin_dashboard/', admin_dashboard, name='admin_dashboard'),
         path('update_profile/<int:user_id>/', AdminView.update_user_profile, name='update_profile'),
         path('see_all_users/', AdminView.see_all_users, name='see_all_users'),
+        path("delete_user/<int:user_id>/", AdminView.delete_user, name="del_user"),
         path('see_all_genres/', AdminView.see_all_genres, name='see_all_genres'),
         path('add_genre/', AdminView.add_genre, name='add_genre'),
+        path("delete_genre/<int:genre_id>/", AdminView.delete_genre, name="del_genre"),
         path('see_all_movies/', AdminView.see_all_movies, name='see_all_movies'),
         path('add_movie_not_authomatic/', AdminView.add_movie_not_authomatic, name='add_movie_not_authomatic'),
     

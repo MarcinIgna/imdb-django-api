@@ -1,0 +1,11 @@
+{% extends 'core/dash_base.html' %}
+
+{% block content %}
+<h1 style="color: goldenrod;">Delete User</h1>
+  <p>Are you sure you want to delete the user "{{ user.username }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'imdb:see_all_users' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}
