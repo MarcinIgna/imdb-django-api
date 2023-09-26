@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1 style="color: goldenrod;">All Users</h1>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
   <form method="post">
     {% csrf_token %}
     <table>
@@ -34,4 +35,5 @@
     </table>
     <button type="submit" class="btn btn-danger">Delete Selected</button>
   </form>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
 {% endblock %}

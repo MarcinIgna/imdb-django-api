@@ -2,25 +2,32 @@
 
 {% block content %}
   <h1 style="color: goldenrod;">All Genres</h1>
-  <table>
-    <thead>
-      <tr>
-        <th style="color: whitesmoke; padding: 15px;">ID</th>
-        <th style="color: whitesmoke; padding: 15px;">Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for genre in genres %}
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+  <form method="post">
+    {% csrf_token %}
+    <table>
+      <thead>
         <tr>
-          <td style="color: whitesmoke">{{ genre.id }}</td>
-          <td style="color: whitesmoke">{{ genre.name }}</td>
+          <th style="color: whitesmoke; padding: 15px;">ID</th>
+          <th style="color: whitesmoke; padding: 15px;">Name</th>
+          <th style="color: whitesmoke; padding: 15px;">Select</th>
         </tr>
-      {% empty %}
-        <tr>
-          <td colspan="2" style="color: whitesmoke">No genres found.</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+        {% for genre in genres %}
+          <tr>
+            <td style="color: whitesmoke">{{ genre.id }}</td>
+            <td style="color: whitesmoke">{{ genre.name }}</td>
+            <td style="color: whitesmoke;"><input type="checkbox" name="genre_ids" value="{{ genre.id }}"></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3" style="color: whitesmoke">No genres found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-danger">Delete Selected</button>
+  </form>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
 {% endblock %}

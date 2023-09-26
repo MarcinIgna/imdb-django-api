@@ -58,35 +58,32 @@ class AdminView(FormView):
             context = {'user': user}
             return TemplateResponse(request, 'admin/delete_user.html', context)
     
-    @staticmethod
-    @login_required
-    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
-    def delete_selected_users(request):
-        """
-        This view is used to delete selected users.
-        """
-        if request.method == 'POST':
-            print(request.POST)
-            user_ids = request.POST.getlist('user_ids')
-            print(user_ids)
-            users = User.objects.filter(id__in=user_ids)
-            print(users)
-            users.delete()
-            messages.success(request, 'The selected users have been deleted successfully.')
-        return redirect('imdb:all_users')
+
     
     @staticmethod
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_users(request):
         users = User.objects.all()
-        return  render(request, "admin/all_users.html", {"users": users})
+        if request.method == 'POST':
+            user_ids = request.POST.getlist('user_ids')
+            users = User.objects.filter(id__in=user_ids)
+            users.delete()
+            messages.success(request, 'The selected users have been deleted successfully.')
+            return redirect('imdb:see_all_users')
+        return render(request, "admin/all_users.html", {"users": users})
 
     @staticmethod
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_genres(request):
         genres = Genre.objects.all()
+        if request.method == 'POST':
+            genre_ids = request.POST.getlist('genre_ids')
+            genres = Genre.objects.filter(id__in=genre_ids)
+            genres.delete()
+            messages.success(request, 'The selected genres have been deleted successfully.')
+            return redirect('imdb:see_all_genres')
         context = {"genres": genres}
         return TemplateResponse(request, "admin/all_genres.html", context)
     
@@ -126,6 +123,12 @@ class AdminView(FormView):
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_movies(request):
+        if request.method == 'POST':
+            movie_ids = request.POST.getlist('movie_ids')
+            movies = Movie.objects.filter(id__in=movie_ids)
+            movies.delete()
+            messages.success(request, 'The selected movies have been deleted successfully.')
+            return redirect('imdb:see_all_movies')
         movies = Movie.objects.all()
         return render(request, "admin/all_movies.html", {"movies": movies})
     

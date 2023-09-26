@@ -2,10 +2,11 @@
 
 {% block content %}
   <h1 style="color: goldenrod;">Update User Profile</h1>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
   <form method="post" style="color: whitesmoke;">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-warning"type="submit">Update Profile</button>
   </form>
-
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
 {% endblock %}
