@@ -48,25 +48,14 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link 
-                    dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                        style="text-decoration: none;">
+                    <a href="{% url 'imdb:genre_list' %}" class="nav-link dropdown-toggle" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                         GENRES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a href="#" class="dropdown-item">Action</a></li>
-                        <li><a href="#" class="dropdown-item">Romance</a></li>
-                        <li><a href="#" class="dropdown-item">Thriller</a></li>
-                        <li><a href="#" class="dropdown-item">Adventure</a></li>
-                        <li><a href="#" class="dropdown-item">Western</a></li>
-                        <li><a href="#" class="dropdown-item">Fantasy</a></li>
-                        <li><a href="#" class="dropdown-item">Family</a></li>
-                        <li><a href="#" class="dropdown-item">Animation</a></li>
-                        <li><a href="#" class="dropdown-item">Comedy</a></li>
-                        <li><a href="#" class="dropdown-item">War</a></li>
-                        <li><a href="#" class="dropdown-item">History</a></li>
-                        <li><a href="#" class="dropdown-item">Crime</a></li>
-                        <li><a href="#" class="dropdown-item">Drama</a></li>
+                        {% for genre in genres %}
+                        <a href="{% url 'imdb:genre_movies' genre.id %}" class="dropdown-item">{{ genre.name }}</a>
+                        {% endfor %}
                     </ul>
 
                 </li>

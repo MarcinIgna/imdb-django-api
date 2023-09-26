@@ -1,4 +1,4 @@
-<!-- Include necessary CSS and Font Awesome -->
+<!-- Include necessary CSS and Font Awesome base_navbar.html -->
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
 <style>
@@ -37,7 +37,6 @@
         <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -47,26 +46,16 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link 
-                    dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                        style="text-decoration: none;">
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                         GENRES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a href="#" class="dropdown-item">Action</a></li>
-                        <li><a href="#" class="dropdown-item">Romance</a></li>
-                        <li><a href="#" class="dropdown-item">Thriller</a></li>
-                        <li><a href="#" class="dropdown-item">Adventure</a></li>
-                        <li><a href="#" class="dropdown-item">Western</a></li>
-                        <li><a href="#" class="dropdown-item">Fantasy</a></li>
-                        <li><a href="#" class="dropdown-item">Family</a></li>
-                        <li><a href="#" class="dropdown-item">Animation</a></li>
-                        <li><a href="#" class="dropdown-item">Comedy</a></li>
-                        <li><a href="#" class="dropdown-item">War</a></li>
-                        <li><a href="#" class="dropdown-item">History</a></li>
-                        <li><a href="#" class="dropdown-item">Crime</a></li>
-                        <li><a href="#" class="dropdown-item">Drama</a></li>
+                        {% for genre in genres %}
+                           <a href="{% url 'imdb:base_genre_movies' genre.id %}" class="dropdown-item">{{ genre.name }}</a>
+                        {% endfor %}
                     </ul>
+                    
                 </li>
                 <li class="nav-item active">
                     <a href="#" class="nav-link" style="text-decoration: none;">
@@ -89,6 +78,4 @@
                     style="text-decoration: none; color: inherit;">Sign In</a></button>
         </div>
     </div>
-
-
 </nav>
