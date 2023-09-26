@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate, logout
 from imdb_api.forms.login_form import LoginForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
+from imdb_api.models.genre_model import Genre
 
 def login_view(request):
     if request.method == 'POST':
@@ -27,8 +28,9 @@ def login_view(request):
         else:
             print("Form is not valid")
     else:
+        genre = Genre.objects.all()
         form = AuthenticationForm()
-    return render(request, 'core/login.html', {'form': form})
+    return render(request, 'core/login.html', {'genres': genre,'form': form})
 
 
 def logout_view(request):

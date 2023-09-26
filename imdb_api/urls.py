@@ -7,7 +7,7 @@ from imdb_api.views.signup import signup
 from imdb_api.views.login_view import login_view, logout_view
 from imdb_api.views.movies_view import (
     all_movies, new_movies, movie_details_with_trailers,
-    movie_details, movie_search, genre_movies, dash_movie_search, genre_list
+    movie_details, movie_search, base_genre_movies, genre_movies, dash_movie_search, genre_list
     )
 from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
@@ -52,6 +52,7 @@ urlpatterns = [
     path('movie_details/<int:movie_id>/', movie_details, name='movie_details'),
     path('detail&trailer/<int:movie_id>/', movie_details_with_trailers, name='detail&trailer'),
     path('genre_movies/<int:genre_id>/', genre_movies, name='genre_movies'),
+    path('base_genre_movies/<int:genre_id>/', base_genre_movies, name='base_genre_movies'),
     path('genres/', genre_list, name='genre_list'),
     
     

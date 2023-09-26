@@ -8,6 +8,7 @@ from imdb_api.models.genre_model import Genre
 
 def frontpage(request):
     movies = Movie.objects.all()
+    genre = Genre.objects.all()
     context = {
         'movies7': movies[24:28],
         'movies8': movies[28:32],
@@ -15,6 +16,7 @@ def frontpage(request):
         'movies10': movies[36:40],
         'movies11': movies[40:44],
         'movies12': movies[44:48],
+        'genres': genre
      }
     # print('context:', context)
     return render(request, 'core/frontpage.html', context)
@@ -22,6 +24,7 @@ def frontpage(request):
 @login_required(login_url='imdb:login')
 def dashboard(request):
     user = request.user.username
+    genre = Genre.objects.all()
     movies_obj = Movie.objects.all()
     context = {
         'user': user,
@@ -34,6 +37,7 @@ def dashboard(request):
         'movies16': movies_obj[64:68],
         'movies17': movies_obj[72:76],
         'movies18': movies_obj[76:80],
+        'genres': genre,
     }
     return render(request, 'core/dashboard.html', context)
 
