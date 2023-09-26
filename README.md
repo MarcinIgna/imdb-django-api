@@ -24,6 +24,7 @@
 - Cloud deployment for scalability and accessibility.
 - Bootstrap 5 for responsive design.
 - Newsletter (in progress)
+- Filtering by Genre (in progress)
 
 ### Movie Recommendation Algorithm
 
