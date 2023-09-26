@@ -17,12 +17,13 @@
 - Search functionality for finding movies by title.
 - Testing.
 - Security:
-    - Authentication and authorization checks.
+    - Authentication and authorization checks (registration by Google account in progress, also "Forgot Password?" in progress).
     - Protection against common web vulnerabilities.
 - Swagger documentation for API endpoints.
 - PostgreSQL database for efficient data storage.
 - Cloud deployment for scalability and accessibility.
 - Bootstrap 5 for responsive design.
+- Newsletter (in progress)
 
 ### Movie Recommendation Algorithm
 
