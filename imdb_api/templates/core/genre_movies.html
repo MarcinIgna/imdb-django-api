@@ -1,10 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'core/dash_base.html' %}
 
 {% block content %}
   <h1 style="color: goldenrod;">{{ genre.name }} Movies</h1>
   <ul>
     {% for movie in movies %}
-      <li>{{ movie.title }}</li>
+    <li>
+        <a href="{% url 'imdb:movie_details' movie.id %}" style="text-decoration: none; color: white; display: flex; align-items: center;">
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="200" style="margin-right: 10px;">
+            <span style="font-weight: bold;">{{ movie.title }}</span>
+        </a>
+    </li>
     {% empty %}
       <li>No movies found.</li>
     {% endfor %}
