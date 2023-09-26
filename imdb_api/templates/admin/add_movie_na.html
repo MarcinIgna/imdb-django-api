@@ -2,9 +2,11 @@
 
 {% block content %}
   <h1 style="color: goldenrod;">Add Movie</h1>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
   <form method="post" style="color: whitesmoke; padding: 15px;">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-warning" type="submit">Add Movie</button>
   </form>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
 {% endblock %}

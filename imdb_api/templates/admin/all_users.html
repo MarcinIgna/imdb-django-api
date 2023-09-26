@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1 style="color: goldenrod;">All Users</h1>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
   <form method="post">
     {% csrf_token %}
     <table>
@@ -13,6 +14,7 @@
           <th style="color: whitesmoke; padding: 20px;">First Name</th>
           <th style="color: whitesmoke; padding: 20px;">Last Name</th>
           <th style="color: whitesmoke; padding: 20px;">Select</th>
+          <th style="color: whitesmoke; padding: 20px;">Update Profile</th>
         </tr>
       </thead>
       <tbody>
@@ -24,14 +26,16 @@
             <td style="color: whitesmoke;">{{ user.first_name }}</td>
             <td style="color: whitesmoke;">{{ user.last_name }}</td>
             <td style="color: whitesmoke;"><input type="checkbox" name="user_ids" value="{{ user.id }}"></td>
+            <td style="color: whitesmoke;"><a href="{% url 'imdb:update_profile' user.id %}" class="btn btn-warning">Update Profile</a></td>
           </tr>
         {% empty %}
           <tr>
-            <td colspan="5" style="color: whitesmoke;">No users found.</td>
+            <td colspan="6" style="color: whitesmoke;">No users found.</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
     <button type="submit" class="btn btn-danger">Delete Selected</button>
   </form>
+  <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
 {% endblock %}
