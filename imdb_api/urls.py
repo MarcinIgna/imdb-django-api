@@ -7,7 +7,7 @@ from imdb_api.views.signup import signup
 from imdb_api.views.login_view import login_view, logout_view
 from imdb_api.views.movies_view import (
     all_movies, new_movies, movie_details_with_trailers,
-    movie_details, movie_search, movies_by_genre, dash_movie_search
+    movie_details, movie_search, genre_movies, dash_movie_search, genre_list
     )
 from imdb_api.views.movie_serializer_view import MovieView
 from imdb_api.views.genre_serializer_view import GenresView
@@ -25,7 +25,6 @@ urlpatterns = [
     path("dashboard/", dashboard, name='dashboard'),
     path('movie_search/', movie_search, name='movie_search'),
     path('dash_movie/', dash_movie_search, name='dash_movie_search'),
-    path('movies-by-genre/<str:genre>/', movies_by_genre, name='movies_by_genre'),
     path('user_update_profile/', user_update_profile, name='user_update_profile'),
     
     # path for admin dashboard
@@ -52,6 +51,9 @@ urlpatterns = [
     path('new_movies', new_movies, name='new_movies'),
     path('movie_details/<int:movie_id>/', movie_details, name='movie_details'),
     path('detail&trailer/<int:movie_id>/', movie_details_with_trailers, name='detail&trailer'),
+    path('genre_movies/<int:genre_id>/', genre_movies, name='genre_movies'),
+    path('genres/', genre_list, name='genre_list'),
+    
     
     # APIs for movies
     path("apis/movies/", MovieView.as_view(), name="apis_movies"),

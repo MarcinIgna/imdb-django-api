@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 style="color: goldenrod;">{{ genre.name }} Movies</h1>
+  <ul>
+    {% for movie in movies %}
+      <li>{{ movie.title }}</li>
+    {% empty %}
+      <li>No movies found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
