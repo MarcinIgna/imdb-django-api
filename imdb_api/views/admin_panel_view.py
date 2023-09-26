@@ -38,9 +38,7 @@ class AdminView(FormView):
 
         else:
             form = UserChangeForm(instance=user)
-        
-        # Render the form in the template for the admin to update the user's profile
-        return render(request, 'admin/admin_update_profile.html', {'form': form})
+        return render(request, "admin/admin_update_profile.html", {"form": form, "user": user})
     
     @staticmethod
     @login_required
@@ -59,7 +57,6 @@ class AdminView(FormView):
             return TemplateResponse(request, 'admin/delete_user.html', context)
     
 
-    
     @staticmethod
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)

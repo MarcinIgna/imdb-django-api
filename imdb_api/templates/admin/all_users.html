@@ -14,6 +14,7 @@
           <th style="color: whitesmoke; padding: 20px;">First Name</th>
           <th style="color: whitesmoke; padding: 20px;">Last Name</th>
           <th style="color: whitesmoke; padding: 20px;">Select</th>
+          <th style="color: whitesmoke; padding: 20px;">Update Profile</th>
         </tr>
       </thead>
       <tbody>
@@ -25,10 +26,11 @@
             <td style="color: whitesmoke;">{{ user.first_name }}</td>
             <td style="color: whitesmoke;">{{ user.last_name }}</td>
             <td style="color: whitesmoke;"><input type="checkbox" name="user_ids" value="{{ user.id }}"></td>
+            <td style="color: whitesmoke;"><a href="{% url 'imdb:update_profile' user.id %}" class="btn btn-warning">Update Profile</a></td>
           </tr>
         {% empty %}
           <tr>
-            <td colspan="5" style="color: whitesmoke;">No users found.</td>
+            <td colspan="6" style="color: whitesmoke;">No users found.</td>
           </tr>
         {% endfor %}
       </tbody>

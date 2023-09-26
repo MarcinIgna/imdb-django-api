@@ -3,7 +3,6 @@
 {% block content %}
   <h1 style="color: goldenrod;">Admin Dashboard</h1>
   <ul>
-    <li><a href="{% url 'imdb:update_profile' user_id=1 %}">Update User Profile</a></li>
     <li><a href="{% url 'imdb:see_all_users' %}">See All Users</a></li>
     <li><a href="{% url 'imdb:see_all_genres' %}">See All Genres</a></li>
     <li><a href="{% url 'imdb:add_genre' %}">Add Genre</a></li>
