@@ -50,14 +50,16 @@ class CommentView(View):
     """
     def post(self, request, movie_id):
         movie = Movie.objects.get(pk=movie_id)
+        print('movies:', movie)
         form = CommentForm(request.POST)
         if form.is_valid():
+            print('form:',form)
             comment = form.save(commit=False)
             comment.user = request.user
             comment.movie = movie
             comment.save()
-            return redirect('movie_detail', movie_id=movie_id)
-        return render(request, 'movie_detail.html', {'movie': movie, 'form': form})
+            return redirect('core/detail&trailer.html', movie_id=movie_id)
+        return render(request, 'core/detail&trailer.html', {'movie': movie, 'form': form})
 
     def put(self, request, comment_id):
         try:
@@ -66,7 +68,7 @@ class CommentView(View):
                 form = CommentForm(request.POST, instance=comment)
                 if form.is_valid():
                     form.save()
-                    return redirect('movie_detail', movie_id=comment.movie.id)
+                    return redirect('core/detail&trailer.html', movie_id=comment.movie.id)
                 return render(request, 'edit_comment.html', {'form': form, 'comment': comment})
             return HttpResponseForbidden("You don't have permission to edit this comment.")
         except Comment.DoesNotExist:
@@ -78,26 +80,12 @@ class CommentView(View):
             if comment.user == request.user:
                 movie_id = comment.movie.id
                 comment.delete()
-                return redirect('movie_detail', movie_id=movie_id)
+                return redirect('core/detail&trailer.html', movie_id=movie_id)
             return HttpResponseForbidden("You don't have permission to delete this comment.")
         except Comment.DoesNotExist:
             return HttpResponseNotFound("Comment not found.")
         
 
-
-
-
-
-"""
-<button id="favorite-button" data-movie-id="{{ movie.id }}" data-is-favorite="{{ is_favorite }}">
-    {% if is_favorite %}
-        Remove from Favorites
-    {% else %}
-        Add to Favorites
-    {% endif %}
-</button>
-
-"""
 # it is just how it could work we will see     
 def toggle_favorite(request, movie_id):
     print("toggle_favorite view executed")

@@ -14,7 +14,7 @@ from imdb_api.views.genre_serializer_view import GenresView
 from imdb_api.views.user_recommendations import user_recommendations
 
 from imdb_api.views.admin_panel_view import AdminView
-from imdb_api.views.user_panel_view import vote_for_movie, toggle_favorite, user_update_profile
+from imdb_api.views.user_panel_view import vote_for_movie, toggle_favorite, user_update_profile, CommentView
 
 
 app_name = "imdb"
@@ -55,6 +55,8 @@ urlpatterns = [
     path('base_genre_movies/<int:genre_id>/', base_genre_movies, name='base_genre_movies'),
     path('genres/', genre_list, name='genre_list'),
     
+    # path for comments
+    path('comment/<int:movie_id>/', CommentView.as_view(), name='comment'),
     
     # APIs for movies
     path("apis/movies/", MovieView.as_view(), name="apis_movies"),

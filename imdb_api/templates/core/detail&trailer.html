@@ -36,6 +36,17 @@
                         Add to Favorites
                     {% endif %}
                 </button>
+                <form method="post" action="{% url 'imdb:comment' movie_id=movie.id %}">
+                    {% csrf_token %}
+            
+                    <!-- Add a textarea for the comment -->
+                    <div class="form-group">
+                        <h3>Add a Comment:</h3>
+                        <textarea id="comment" name="text" class="form-control" rows="4">{{ comment.text }}</textarea>
+                    </div>
+            
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                </form>
             </div>
         </div>
         <br>
