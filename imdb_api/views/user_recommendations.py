@@ -1,12 +1,14 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 from imdb_api.recommendations import get_user_movie_recommendations
 
+
+@login_required
 def user_recommendations(request):
-    print("User Recommendations View")
-    # Check if the user is logged in
-    if not request.user.is_authenticated:
-        # Handle when the user is not authenticated (redirect or show a message)
-        return render(request, 'not_authenticated.html')
+    """
+    This view displays a list of movie recommendations for the logged-in user.
+    """
 
     # Get movie recommendations for the logged-in user
     recommendations = get_user_movie_recommendations(request.user)

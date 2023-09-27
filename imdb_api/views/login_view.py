@@ -6,6 +6,9 @@ from imdb_api.models.genre_model import Genre
 
 def login_view(request):
     genre = Genre.objects.all()
+    """
+    This view is used to login a user/admin.
+    """
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
@@ -34,5 +37,8 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+    This view is used to logout a user/admin.
+    """
     logout(request)
     return redirect('imdb:frontpage')

@@ -3,42 +3,45 @@
 {% block content %}
   <h1 style="color: goldenrod;">All Movies</h1>
   <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+  <table>
+    <thead>
+      <tr>
+        <th style="color: whitesmoke; padding: 15px;">ID</th>
+        <th style="color: whitesmoke; padding: 15px;">tmdb_id</th>
+        <th style="color: whitesmoke; padding: 15px;">Title</th>
+        <th style="color: whitesmoke; padding: 15px;">Release Year</th>
+        <th style="color: whitesmoke; padding: 15px;">Genres</th>
+        <th style="color: whitesmoke; padding: 15px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for movie in movies %}
+        <tr>
+          <td style="color: whitesmoke;">{{ movie.id }}</td>
+          <td style="color: whitesmoke;">{{ movie.tmdb_id }}</td>
+          <td style="color: whitesmoke;">{{ movie.title }}</td>
+          <td style="color: whitesmoke;">{{ movie.release_date }}</td>
+          <td style="color: whitesmoke;">
+            {% for genre in movie.genres.all %}
+              {{ genre.name }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              No genres found.
+            {% endfor %}
+          </td>
+          <td style="color: whitesmoke;">
+            <a href="{% url 'imdb:update_movie' movie.id %}" class="btn btn-primary">Update</a>
+            <input type="checkbox" name="movie_ids" value="{{ movie.id }}">
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6" style="color: whitesmoke;">No movies found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   <form method="post">
     {% csrf_token %}
-    <table>
-      <thead>
-        <tr>
-          <th style="color: whitesmoke; padding: 15px;">ID</th>
-          <th style="color: whitesmoke; padding: 15px;">tmdb_id</th>
-          <th style="color: whitesmoke; padding: 15px;">Title</th>
-          <th style="color: whitesmoke; padding: 15px;">Release Year</th>
-          <th style="color: whitesmoke; padding: 15px;">Genres</th>
-          <th style="color: whitesmoke; padding: 15px;">Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for movie in movies %}
-          <tr>
-            <td style="color: whitesmoke;">{{ movie.id }}</td>
-            <td style="color: whitesmoke;">{{ movie.tmdb_id }}</td>
-            <td style="color: whitesmoke;">{{ movie.title }}</td>
-            <td style="color: whitesmoke;">{{ movie.release_date }}</td>
-            <td style="color: whitesmoke;">
-              {% for genre in movie.genres.all %}
-                {{ genre.name }}{% if not forloop.last %}, {% endif %}
-              {% empty %}
-                No genres found.
-              {% endfor %}
-            </td>
-            <td style="color: whitesmoke;"><input type="checkbox" name="movie_ids" value="{{ movie.id }}"></td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="6" style="color: whitesmoke;">No movies found.</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
     <button type="submit" class="btn btn-danger">Delete Selected</button>
   </form>
   <a href="{% url 'imdb:admin_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
