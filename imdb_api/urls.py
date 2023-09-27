@@ -37,7 +37,7 @@ urlpatterns = [
         path("delete_genre/<int:genre_id>/", AdminView.delete_genre, name="del_genre"),
         path('see_all_movies/', AdminView.see_all_movies, name='see_all_movies'),
         path('add_movie_not_authomatic/', AdminView.add_movie_not_authomatic, name='add_movie_not_authomatic'),
-    
+        path("update_movie/<int:movie_id>/", AdminView.update_movie, name="update_movie"),
     # path for Signup, Login, Logout
     path("signup/", signup, name="signup"),
     path("login/", login_view, name="login"),

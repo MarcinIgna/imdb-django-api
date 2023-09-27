@@ -1,15 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from imdb_api.models.movie_model import Movie
-from imdb_api.serializers.movie_serializer import MovieSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from imdb_api.models.movie_model import Movie
+from imdb_api.serializers.movie_serializer import MovieSerializer
+
 
 class MovieView(APIView):
-
+    """
+    This class is used to get,add, edit and delete movies.
+    """
     authentication_classes = [TokenAuthentication]
-
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk=None):

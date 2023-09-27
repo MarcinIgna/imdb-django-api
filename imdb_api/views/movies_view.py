@@ -37,6 +37,9 @@ def base_genre_movies(request, genre_id):
     return render(request, 'core/base_genre_movies.html', {'genres':genre1,'genre': genre, 'movies': movies})
 
 def all_movies(request):
+    """
+    This view displays a list of all movies used in carusele.
+    """
     # All movies
     movies = Movie.objects.all()
     context = {
@@ -47,11 +50,12 @@ def all_movies(request):
         'movies5': movies[16:20],
         'movies6': movies[20:24],
      }
-    # print('context:', context)
-    # print('request:', request)
     return render(request, "core/all_movies.html", context)
 
 def new_movies(request):
+    """
+    This view displays a list of new movies used in carusele.
+    """
     movies = Movie.objects.all()
     context = {
         'movies7': movies[24:28],
@@ -61,12 +65,14 @@ def new_movies(request):
         'movies11': movies[40:44],
         'movies12': movies[44:48],
      }
-    # print('context:', context)
-    # print('request:', request)
+
     return render(request, "core/new_movies.html", context)
 
 def movie_details(request, movie_id):
-    # Get the movie with the given id
+    """
+    This view displays the details of a movie.
+    """
+
     try:
         genre = Genre.objects.all()
         movie = get_object_or_404(Movie, pk=movie_id)
@@ -78,6 +84,9 @@ def movie_details(request, movie_id):
 
 
 def movie_details_with_trailers(request, movie_id):
+    """
+    This view displays the details of a movie with trailers.
+    """
     try:
         genre = Genre.objects.all()
         movie = get_object_or_404(Movie, pk=movie_id)
@@ -96,6 +105,9 @@ def movie_details_with_trailers(request, movie_id):
 
 
 def movie_search(request):
+    """
+    This view is used to search for movies.
+    """
     if request.method == 'POST':
         form = MovieSearchForm(request.POST)
         if form.is_valid():
@@ -107,6 +119,9 @@ def movie_search(request):
     return render(request, 'core/movie_search.html', {'form': form})
 
 def dash_movie_search(request):
+    """
+    This view is used to search for movies.
+    """
     if request.method == 'POST':
         form = MovieSearchForm(request.POST)
         if form.is_valid():
