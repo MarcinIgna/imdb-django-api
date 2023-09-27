@@ -7,7 +7,7 @@
 - Django-based user friendly project for accessing data.
 - Our MoviePMB Django project retrieves and updates movie data from [The Movie Database (TMDb) API](https://developer.themoviedb.org/reference/intro/getting-started). This third-party integration allows us to keep our database up-to-date with the latest movie information.
 - Multi-role authentication:
-  - Admins: Full access to CRUD operations.(html in progress)
+  - Admins: Full access to CRUD operations.
   - Registered Users: Access to read IMDb data.
   - Authenticated Users: 
     - Can create thier own favorite movie list and later get personal recommendation.
@@ -20,21 +20,21 @@
     - Authentication and authorization checks (registration by Google account in progress, also "Forgot Password?" in progress).
     - Protection against common web vulnerabilities.
 - Swagger documentation for API endpoints.
-- PostgreSQL database for efficient data storage.
-- Cloud deployment for scalability and accessibility.
+- PostgreSQL database for efficient data storage(We used [Render](https://render.com/)).
+- Cloud deployment for scalability and accessibility(We used [Amazon Web Services (AWS)](https://aws.amazon.com/)).
 - Bootstrap 5 for responsive design.
 - Newsletter (in progress)
 - Filtering by Genre
 
 ### Movie Recommendation Algorithm
 
-Our project includes a powerful recommendation algorithm that suggests movies to users based on their preferences and movie descriptions. This algorithm analyzes the descriptions of movies you've interacted with and identifies similar movies that you might enjoy.
+Our project includes a powerful recommendation algorithm that suggests movies to users based on their preferences, movie descriptions and genres. This algorithm analyzes the descriptions of movies you've interacted with and identifies similar movies that you might enjoy.
 
 #### How It Works
 
 1. **User Interaction Tracking**: The algorithm keeps track of the movies you've rated, liked, or interacted with in any way.
 
-2. **Description Analysis**: It analyzes the descriptions of these movies, extracting key features and keywords.
+2. **Description Analysis**: It analyzes the descriptions and genres of these movies, extracting key features and keywords.
 
 3. **Similarity Calculation**: Using advanced natural language processing (NLP) techniques, the algorithm calculates the similarity between movie descriptions.
 
