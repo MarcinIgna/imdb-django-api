@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from imdb_api.models.genre_model import Genre
 
 def login_view(request):
+    genre = Genre.objects.all()
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
@@ -28,7 +29,6 @@ def login_view(request):
         else:
             print("Form is not valid")
     else:
-        genre = Genre.objects.all()
         form = AuthenticationForm()
     return render(request, 'core/login.html', {'genres': genre,'form': form})
 

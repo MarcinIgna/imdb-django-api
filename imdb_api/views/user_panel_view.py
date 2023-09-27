@@ -58,7 +58,7 @@ class CommentView(View):
             comment.user = request.user
             comment.movie = movie
             comment.save()
-            return redirect('core/detail&trailer.html', movie_id=movie_id)
+            return redirect('imdb:detail&trailer', movie_id=movie_id)
         return render(request, 'core/detail&trailer.html', {'movie': movie, 'form': form})
 
     def put(self, request, comment_id):
