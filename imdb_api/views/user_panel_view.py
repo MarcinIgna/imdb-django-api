@@ -46,8 +46,9 @@ def user_update_profile(request):
 
 class CommentView(View):
     """ 
-    This view is used to add, edit and delete comments.
+    This class is used to add, edit and delete comments.
     """
+    @login_required
     def post(self, request, movie_id):
         movie = Movie.objects.get(pk=movie_id)
         form = CommentForm(request.POST)
@@ -58,7 +59,7 @@ class CommentView(View):
             comment.save()
             return redirect('movie_detail', movie_id=movie_id)
         return render(request, 'movie_detail.html', {'movie': movie, 'form': form})
-
+    @login_required
     def put(self, request, comment_id):
         try:
             comment = Comment.objects.get(pk=comment_id)
@@ -71,7 +72,7 @@ class CommentView(View):
             return HttpResponseForbidden("You don't have permission to edit this comment.")
         except Comment.DoesNotExist:
             return HttpResponseNotFound("Comment not found.")
-
+    @login_required
     def delete(self, request, comment_id):
         try:
             comment = Comment.objects.get(pk=comment_id)
@@ -84,23 +85,12 @@ class CommentView(View):
             return HttpResponseNotFound("Comment not found.")
         
 
-
-
-
-
-"""
-<button id="favorite-button" data-movie-id="{{ movie.id }}" data-is-favorite="{{ is_favorite }}">
-    {% if is_favorite %}
-        Remove from Favorites
-    {% else %}
-        Add to Favorites
-    {% endif %}
-</button>
-
-"""
-# it is just how it could work we will see     
+# it is just how it could work we will see 
+@login_required    
 def toggle_favorite(request, movie_id):
-    print("toggle_favorite view executed")
+    """
+    This view is used to toggle a movie as favorite for a user.
+    """
     if request.user.is_authenticated:
         movie = Movie.objects.get(pk=movie_id)
         user = request.user
@@ -119,19 +109,19 @@ def toggle_favorite(request, movie_id):
         return JsonResponse({"success": False, "message": "User not authenticated"})
     
     
-    # View the user's all favorite movies   
+ 
+@login_required
 def favorite_movies(request):
+    """
+    This view is used to see the user's favorite movies.
+    """
     if request.user.is_authenticated:
         favorite_movies = UserFavorite.objects.filter(user=request.user).select_related('movie')
         return render(request, 'favorite_movies.html', {'favorite_movies': favorite_movies})
     else:
         return HttpResponseForbidden("You don't have permission to view this page.")
 
-    
-  
-# check if form is needed if not under is function that is not using form
-
-"""This should work with javascript"""
+@login_required  
 def vote_for_movie(request, movie_id):
     """
     This view is used to add or update a user's vote for a movie.
@@ -152,21 +142,5 @@ def vote_for_movie(request, movie_id):
     
     return JsonResponse({'success': False})
 
-      
-# def vote_for_movie(request, movie_id):
-#     """
-#     This view is used to add or update a user's vote for a movie.
-#     """
-#     if request.method == 'POST':
-#         form = MovieVoteForm(request.POST)
-#         if form.is_valid():
-#             user_vote = form.cleaned_data['rating']
-#             movie = get_object_or_404(Movie, pk=movie_id)
-#             movie_vote, created = MovieVote.objects.get_or_create(user=request.user, movie=movie, defaults={'rating': user_vote})
-#             if not created:
-#                 movie_vote.rating = user_vote
-#                 movie_vote.save()
-#             update_movie_vote_average(movie)
-#             return JsonResponse({'success': True})
-#     return JsonResponse({'success': False})
+    
 

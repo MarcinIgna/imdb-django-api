@@ -23,7 +23,7 @@ class AdminView(FormView):
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def update_user_profile(request, user_id):
         """
-        This view is used to update the profile of any user.
+        This view is used to update the profile of any user by id.
         """
         user = get_object_or_404(User, id=user_id)
         if request.method == 'POST':
@@ -45,7 +45,7 @@ class AdminView(FormView):
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def delete_user(request, user_id):
         """
-        This view is used to delete a user.
+        This view is used to delete a user by id.
         """
         user = get_object_or_404(User, id=user_id)
         if request.method == 'POST':
@@ -61,6 +61,9 @@ class AdminView(FormView):
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_users(request):
+        """
+        This view is used to see all users and to delete.
+        """
         users = User.objects.all()
         if request.method == 'POST':
             user_ids = request.POST.getlist('user_ids')
@@ -74,6 +77,9 @@ class AdminView(FormView):
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_genres(request):
+        """
+        This view is used to see all genres and to delete.
+        """
         genres = Genre.objects.all()
         if request.method == 'POST':
             genre_ids = request.POST.getlist('genre_ids')
@@ -88,6 +94,9 @@ class AdminView(FormView):
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def add_genre(request):
+        """
+        This view is used to add a new genre.
+        """
         if request.method == 'POST':
             form = GenreForm(request.POST)
             if form.is_valid():
@@ -106,6 +115,9 @@ class AdminView(FormView):
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def delete_genre(request, genre_id):
+        """
+        This view is used to delete a genre by id.
+        """
         genre = get_object_or_404(Genre, id=genre_id)
         if request.method == 'POST':
             genre.delete()
@@ -120,6 +132,9 @@ class AdminView(FormView):
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def see_all_movies(request):
+        """
+        This view is used to see all movies and to delete.
+        """
         if request.method == 'POST':
             movie_ids = request.POST.getlist('movie_ids')
             movies = Movie.objects.filter(id__in=movie_ids)
@@ -133,6 +148,9 @@ class AdminView(FormView):
     @login_required
     @user_passes_test(lambda u: u.is_staff or u.is_superuser)
     def add_movie_not_authomatic(request):
+        """
+        This view is used to add a new movie.
+        """
         if request.method == 'POST':
             form = MovieForm(request.POST)
             if form.is_valid():
@@ -141,6 +159,26 @@ class AdminView(FormView):
         else:
             form = MovieForm()
         return render(request, 'admin/add_movie_na.html', {'form': form})
+    
+    @staticmethod   
+    @login_required
+    @user_passes_test(lambda u: u.is_staff or u.is_superuser)
+    def update_movie(request, movie_id):
+        """
+        This view is used to update a movie by id.
+        """
+        movie = get_object_or_404(Movie, id=movie_id)
+        if request.method == 'POST':
+            form = MovieForm(request.POST, instance=movie)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'The movie has been updated successfully.')
+                return redirect('imdb:see_all_movies')
+            else:
+                messages.error(request, 'There was an error in the form. Please correct it.')
+        else:
+            form = MovieForm(instance=movie)
+        return render(request, 'admin/update_movie.html', {'form': form, 'movie': movie})
     
     @staticmethod
     @login_required

@@ -4,7 +4,9 @@ from django.contrib.auth import login
 from rest_framework.authtoken.models import Token  # Import the Token model
 
 def signup(request):
-    # user cretion
+    """
+    This view is used to signup a user.
+    """
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
