@@ -8,28 +8,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- Add inline CSS for body background color -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Set the minimum height of the body to 100% of the viewport height */
+            margin: 0;
+        }
+
+        .base {
+            flex: 1; /* Allow the content to grow and fill the remaining space */
+            width: 100%;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.7) url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .content {
+            flex: 1; /* Allow the content to grow and fill the remaining space */
+        }
+    </style>
 </head>
-<style>
-    .base {
-        width:100%; height:400px;
-        background: rgba(0,0,0,0.7) url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        background-size: cover; /* Adjust the background size as needed */
-        background-repeat: no-repeat;
-}
-</style>
 
 <body class="base">
-    {% include 'core/dash_navbar.html' %}
+    <div>
+        {% include 'core/dash_navbar.html' %}
+    </div>
 
-    {% block content %}
-    {% endblock %}
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-
-
-    
     {% include 'core/footer.html' %}
     {% include 'core/javascript_link.html' %}
 </body>
-
 
 </html>
