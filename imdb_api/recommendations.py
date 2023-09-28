@@ -23,7 +23,7 @@ def get_user_movie_recommendations(user, num_recommendations=10):
 
     # Calculate TF-IDF matrix and similarities
     similarities = calculate_tfidf_matrix(favorite_movie_overviews, favorite_movie_genres)
-    print(similarities)
+    # print(similarities)
     # Exclude the user's favorite movies from the recommendations
     non_favorite_recommended_movies = Movie.objects.exclude(id__in=favorite_movie_ids)
 

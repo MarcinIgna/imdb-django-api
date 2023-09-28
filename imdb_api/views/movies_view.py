@@ -11,6 +11,7 @@ from imdb_api.models.user_favorite_model import UserFavorite
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.trailer_model import TrailerVideo
 from imdb_api.models.movie_model import Movie
+from imdb_api.models.comment_model import Comment
 
 def genre_list(request):
     """
@@ -133,8 +134,12 @@ def movie_details_with_trailers(request, movie_id):
         # Check if the movie is in the user's favorites
         if UserFavorite.objects.filter(user=request.user, movie=movie).exists():
             is_favorite = True
-
-    return render(request, 'core/detail&trailer.html', {'genres':genre,'movie': movie, 'trailers': trailer_videos, 'is_favorite': is_favorite})
+    comments = Comment.objects.filter(movie_id=movie_id)
+    return render(request, 'core/detail&trailer.html', {'genres':genre,
+                                                        'movie': movie,
+                                                        'trailers': trailer_videos,
+                                                        'is_favorite': is_favorite,
+                                                        'comments': comments})
 
 
 def movie_search(request):
