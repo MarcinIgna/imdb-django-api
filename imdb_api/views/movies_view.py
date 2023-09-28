@@ -2,6 +2,8 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from imdb_api.forms.search_form import MovieSearchForm
 from imdb_api.models.genre_model import Genre
@@ -9,6 +11,7 @@ from imdb_api.models.user_favorite_model import UserFavorite
 from imdb_api.models.movie_model import Movie
 from imdb_api.models.trailer_model import TrailerVideo
 from imdb_api.models.movie_model import Movie
+from imdb_api.models.comment_model import Comment
 
 def genre_list(request):
     """
@@ -24,7 +27,22 @@ def genre_movies(request, genre_id):
     """
     genre1 = Genre.objects.all()
     genre = Genre.objects.get(id=genre_id)
-    movies = Movie.objects.filter(genres=genre)
+    all_movies = Movie.objects.filter(genres=genre)
+
+    # Number of movies per page
+    movies_per_page = 9
+
+    paginator = Paginator(all_movies, movies_per_page)
+    page = request.GET.get('page')
+
+    try:
+        movies = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        movies = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g., 9999), deliver the last page of results.
+        movies = paginator.page(paginator.num_pages)
     return render(request, 'core/genre_movies.html', {'genres':genre1,'genre': genre, 'movies': movies})
     
 def base_genre_movies(request, genre_id):
@@ -33,7 +51,22 @@ def base_genre_movies(request, genre_id):
     """
     genre1 = Genre.objects.all()
     genre = Genre.objects.get(id=genre_id)
-    movies = Movie.objects.filter(genres=genre)
+    all_movies = Movie.objects.filter(genres=genre)
+
+    # Number of movies per page
+    movies_per_page = 9
+
+    paginator = Paginator(all_movies, movies_per_page)
+    page = request.GET.get('page')
+
+    try:
+        movies = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        movies = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g., 9999), deliver the last page of results.
+        movies = paginator.page(paginator.num_pages)
     return render(request, 'core/base_genre_movies.html', {'genres':genre1,'genre': genre, 'movies': movies})
 
 def all_movies(request):
@@ -83,6 +116,7 @@ def movie_details(request, movie_id):
     return render(request, 'core/movie_details.html', {'genres': genre,'movie': movie, 'trailers': trailer_videos})
 
 
+@login_required
 def movie_details_with_trailers(request, movie_id):
     """
     This view displays the details of a movie with trailers.
@@ -100,35 +134,41 @@ def movie_details_with_trailers(request, movie_id):
         # Check if the movie is in the user's favorites
         if UserFavorite.objects.filter(user=request.user, movie=movie).exists():
             is_favorite = True
-
-    return render(request, 'core/detail&trailer.html', {'genres':genre,'movie': movie, 'trailers': trailer_videos, 'is_favorite': is_favorite})
+    comments = Comment.objects.filter(movie_id=movie_id)
+    return render(request, 'core/detail&trailer.html', {'genres':genre,
+                                                        'movie': movie,
+                                                        'trailers': trailer_videos,
+                                                        'is_favorite': is_favorite,
+                                                        'comments': comments})
 
 
 def movie_search(request):
     """
     This view is used to search for movies.
     """
+    genre = Genre.objects.all()
     if request.method == 'POST':
         form = MovieSearchForm(request.POST)
         if form.is_valid():
             search_term = form.cleaned_data['search_term']
             # query the database for movies that match the search term
             movies = Movie.objects.filter(title__icontains=search_term)
-            return render(request, 'core/movie_search.html', {'movies': movies})
+            return render(request, 'core/movie_search.html', {'genres': genre,'movies': movies})
     form = MovieSearchForm()
-    return render(request, 'core/movie_search.html', {'form': form})
+    return render(request, 'core/movie_search.html', {'genres': genre,'form': form})
 
 def dash_movie_search(request):
     """
     This view is used to search for movies.
     """
+    genre = Genre.objects.all()
     if request.method == 'POST':
         form = MovieSearchForm(request.POST)
         if form.is_valid():
             search_term = form.cleaned_data['search_term']
             # query the database for movies that match the search term
             movies = Movie.objects.filter(title__icontains=search_term)
-            return render(request, 'core/dash_movie_search.html', {'movies': movies})
+            return render(request, 'core/dash_movie_search.html', {'genres': genre,'movies': movies})
     form = MovieSearchForm()
-    return render(request, 'core/dash_movie_search.html', {'form': form})
+    return render(request, 'core/dash_movie_search.html', {'genres': genre, 'form': form})
 

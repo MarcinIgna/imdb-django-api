@@ -9,7 +9,6 @@ from django.http import JsonResponse
 import json
 from django.contrib.auth.decorators import login_required
 
-
 from imdb_api.forms.comment_form import CommentForm
 from imdb_api.forms.movie_vote_form import MovieVoteForm
 from imdb_api.forms.user_panel_update_form import UserUpdateForm
@@ -45,10 +44,25 @@ def user_update_profile(request):
     return render(request, 'core/user_update_profile.html', {'form': form})
 
 class CommentView(View):
+
     """ 
     This class is used to add, edit and delete comments.
+    
     """
-    @login_required
+    def movie_comments(self, movie_id):
+        movie = Movie.objects.get(pk=movie_id)
+        comments = Comment.objects.filter(movie=movie)
+        print("Comments:", comments)
+        return comments
+
+
+    def get(self, request, movie_id):
+        print('get')
+        movie = Movie.objects.get(pk=movie_id)
+        comments = self.movie_comments(movie_id)
+        form = CommentForm()
+        return render(request, 'core/detail&trailer.html', {'movie': movie, 'comments': comments, 'form': form})
+
     def post(self, request, movie_id):
         movie = Movie.objects.get(pk=movie_id)
         form = CommentForm(request.POST)
@@ -57,9 +71,10 @@ class CommentView(View):
             comment.user = request.user
             comment.movie = movie
             comment.save()
-            return redirect('movie_detail', movie_id=movie_id)
-        return render(request, 'movie_detail.html', {'movie': movie, 'form': form})
-    @login_required
+            return redirect('imdb:detail&trailer', movie_id=movie_id)
+        return render(request, 'core/detail&trailer.html', {'movie': movie, 'form': form})
+
+
     def put(self, request, comment_id):
         try:
             comment = Comment.objects.get(pk=comment_id)
@@ -67,23 +82,23 @@ class CommentView(View):
                 form = CommentForm(request.POST, instance=comment)
                 if form.is_valid():
                     form.save()
-                    return redirect('movie_detail', movie_id=comment.movie.id)
+                    return redirect('core/detail&trailer.html', movie_id=comment.movie.id)
                 return render(request, 'edit_comment.html', {'form': form, 'comment': comment})
             return HttpResponseForbidden("You don't have permission to edit this comment.")
         except Comment.DoesNotExist:
             return HttpResponseNotFound("Comment not found.")
-    @login_required
+
     def delete(self, request, comment_id):
         try:
             comment = Comment.objects.get(pk=comment_id)
             if comment.user == request.user:
                 movie_id = comment.movie.id
                 comment.delete()
-                return redirect('movie_detail', movie_id=movie_id)
+                return redirect('core/detail&trailer.html', movie_id=movie_id)
             return HttpResponseForbidden("You don't have permission to delete this comment.")
         except Comment.DoesNotExist:
             return HttpResponseNotFound("Comment not found.")
-        
+    
 
 # it is just how it could work we will see 
 @login_required    
