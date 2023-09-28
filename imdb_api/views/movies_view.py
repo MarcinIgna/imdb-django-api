@@ -108,27 +108,29 @@ def movie_search(request):
     """
     This view is used to search for movies.
     """
+    genre = Genre.objects.all()
     if request.method == 'POST':
         form = MovieSearchForm(request.POST)
         if form.is_valid():
             search_term = form.cleaned_data['search_term']
             # query the database for movies that match the search term
             movies = Movie.objects.filter(title__icontains=search_term)
-            return render(request, 'core/movie_search.html', {'movies': movies})
+            return render(request, 'core/movie_search.html', {'genres': genre,'movies': movies})
     form = MovieSearchForm()
-    return render(request, 'core/movie_search.html', {'form': form})
+    return render(request, 'core/movie_search.html', {'genres': genre,'form': form})
 
 def dash_movie_search(request):
     """
     This view is used to search for movies.
     """
+    genre = Genre.objects.all()
     if request.method == 'POST':
         form = MovieSearchForm(request.POST)
         if form.is_valid():
             search_term = form.cleaned_data['search_term']
             # query the database for movies that match the search term
             movies = Movie.objects.filter(title__icontains=search_term)
-            return render(request, 'core/dash_movie_search.html', {'movies': movies})
+            return render(request, 'core/dash_movie_search.html', {'genres': genre,'movies': movies})
     form = MovieSearchForm()
-    return render(request, 'core/dash_movie_search.html', {'form': form})
+    return render(request, 'core/dash_movie_search.html', {'genres': genre, 'form': form})
 
