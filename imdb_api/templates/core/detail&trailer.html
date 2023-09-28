@@ -8,6 +8,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+<style>
+    .existing-comments {
+        color: black;
+        font-size: 20px;
+    }
+
+    .existing-comments ul {
+        background-color:darkgray;
+        list-style: none;
+        padding: 10px;
+        margin: 0;
+        display: flex;
+        flex-direction: column; /* Display the list items vertically */
+        border: 4px solid white; /* Add a border to create a box */
+        border-radius: 5px; /* Optional: Add rounded corners */
+    }
+
+    .existing-comments li {
+        margin-bottom: 8px; /* Adjust the margin as needed */
+        font-weight: bold; /* Make the comments bold */
+    }
+</style>
 
 <body
     style="background: rgba(0,0,0,0.7)url('{{ movie.poster_url }}'); background-size: cover; background-blend-mode: darken; background-position: center;">
@@ -73,7 +95,7 @@
             </div>
 
             <button type="submit" class="btn btn-warning">Submit Comment</button>
-        </form>
+        </form> <br><br>
         <!-- Display existing comments -->
         <div class="existing-comments">
             <h3 style="color: beige;">Comments:</h3>
