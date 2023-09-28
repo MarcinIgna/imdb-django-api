@@ -1,17 +1,72 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<style>
+  /* Custom styles for pagination */
+  .pagination .page-item {
+    background-color: black;
+  }
+
+  .pagination .page-link {
+    color: black;
+  }
+
+  .pagination .page-item.active .page-link {
+    background-color: gold;
+    color: black;
+  }
+</style>
+
+<div class="container mt-4">
   <h1 style="color: goldenrod;">{{ genre.name }} Movies</h1>
-  <ul>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" style="max-height: 1000px; overflow-y: auto;">
     {% for movie in movies %}
-    <li>
-        <a href="{% url 'imdb:movie_details' movie.id %}" style="text-decoration: none; color: white; display: flex; align-items: center;">
-            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" width="200" style="margin-right: 10px;">
-            <span style="font-weight: bold;">{{ movie.title }}</span>
+    <div class="col" style="max-height: 333px; overflow: hidden;">
+      <div class="card h-100">
+        <a href="{% url 'imdb:movie_details' movie.id %}" class="text-decoration-none text-white">
+          <img src="{{ movie.poster_url }}" alt="{{ movie.title }} Poster" class="card-img-top"
+          style="object-fit: contain; max-height: 50%;">
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }}</h5>
+          </div>
         </a>
-    </li>
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+  </div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" style="max-height: 1000px; overflow-y: auto;">
+    {% endif %}
     {% empty %}
-      <li>No movies found.</li>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <p class="card-text">No movies found.</p>
+        </div>
+      </div>
+    </div>
     {% endfor %}
-  </ul>
+  </div>
+
+  <!-- Bootstrap 5 Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-4">
+      {% if movies.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ movies.previous_page_number }}">Previous</a>
+      </li>
+      {% endif %}
+      {% for i in movies.paginator.page_range %}
+      <li class="page-item {% if movies.number == i %}active{% endif %}">
+        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+      </li>
+      {% endfor %}
+      {% if movies.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ movies.next_page_number }}">Next</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
 {% endblock %}

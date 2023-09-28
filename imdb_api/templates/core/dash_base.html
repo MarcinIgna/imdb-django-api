@@ -21,16 +21,15 @@
 <body class="base">
     {% include 'core/dash_navbar.html' %}
 
+    {% block content %}
+    {% endblock %}
 
 
 
     
-
+    {% include 'core/footer.html' %}
     {% include 'core/javascript_link.html' %}
 </body>
 
 
 </html>
-
-{% block content %}
-{% endblock %}

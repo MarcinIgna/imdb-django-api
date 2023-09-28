@@ -2,6 +2,8 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from imdb_api.forms.search_form import MovieSearchForm
 from imdb_api.models.genre_model import Genre
@@ -24,7 +26,22 @@ def genre_movies(request, genre_id):
     """
     genre1 = Genre.objects.all()
     genre = Genre.objects.get(id=genre_id)
-    movies = Movie.objects.filter(genres=genre)
+    all_movies = Movie.objects.filter(genres=genre)
+
+    # Number of movies per page
+    movies_per_page = 9
+
+    paginator = Paginator(all_movies, movies_per_page)
+    page = request.GET.get('page')
+
+    try:
+        movies = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        movies = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g., 9999), deliver the last page of results.
+        movies = paginator.page(paginator.num_pages)
     return render(request, 'core/genre_movies.html', {'genres':genre1,'genre': genre, 'movies': movies})
     
 def base_genre_movies(request, genre_id):
@@ -33,7 +50,22 @@ def base_genre_movies(request, genre_id):
     """
     genre1 = Genre.objects.all()
     genre = Genre.objects.get(id=genre_id)
-    movies = Movie.objects.filter(genres=genre)
+    all_movies = Movie.objects.filter(genres=genre)
+
+    # Number of movies per page
+    movies_per_page = 9
+
+    paginator = Paginator(all_movies, movies_per_page)
+    page = request.GET.get('page')
+
+    try:
+        movies = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        movies = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g., 9999), deliver the last page of results.
+        movies = paginator.page(paginator.num_pages)
     return render(request, 'core/base_genre_movies.html', {'genres':genre1,'genre': genre, 'movies': movies})
 
 def all_movies(request):
@@ -83,6 +115,7 @@ def movie_details(request, movie_id):
     return render(request, 'core/movie_details.html', {'genres': genre,'movie': movie, 'trailers': trailer_videos})
 
 
+@login_required
 def movie_details_with_trailers(request, movie_id):
     """
     This view displays the details of a movie with trailers.

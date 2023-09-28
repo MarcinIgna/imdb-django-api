@@ -148,12 +148,12 @@ WHITENOISE_STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFil
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
-
+booleans = {'true': True, 'false': False}
 #bucket settings
 USE_S3_SETUP = os.environ.get("USE_S3_SETUP", False)
 # USE_S3_SETUP = False
 
-if USE_S3_SETUP:
+if booleans.get(USE_S3_SETUP):
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
