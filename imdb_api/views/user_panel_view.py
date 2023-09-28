@@ -47,11 +47,19 @@ class CommentView(View):
 
     """ 
     This class is used to add, edit and delete comments.
+    
     """
+    def movie_comments(self, movie_id):
+        movie = Movie.objects.get(pk=movie_id)
+        comments = Comment.objects.filter(movie=movie)
+        print("Comments:", comments)
+        return comments
+
+
     def get(self, request, movie_id):
         print('get')
         movie = Movie.objects.get(pk=movie_id)
-        comments = self.get_movie_comments(movie_id)
+        comments = self.movie_comments(movie_id)
         form = CommentForm()
         return render(request, 'core/detail&trailer.html', {'movie': movie, 'comments': comments, 'form': form})
 
@@ -91,12 +99,6 @@ class CommentView(View):
         except Comment.DoesNotExist:
             return HttpResponseNotFound("Comment not found.")
     
-    def get_movie_comments(self, movie_id):
-        movie = Movie.objects.get(pk=movie_id)
-        comments = Comment.objects.filter(movie=movie)
-        print("Comments:", comments)
-        return comments
-        
 
 # it is just how it could work we will see 
 @login_required    
