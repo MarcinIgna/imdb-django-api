@@ -36,11 +36,32 @@ Our project includes a powerful recommendation algorithm that suggests movies to
 
 2. **Description Analysis**: It analyzes the descriptions and genres of these movies, extracting key features and keywords.
 
-3. **Similarity Calculation**: Using advanced natural language processing (NLP) techniques, the algorithm calculates the similarity between movie descriptions.
+3. **Similarity Calculation**: Using advanced natural language processing (NLP) techniques, the algorithm calculates(TF-IDF) the similarity between movie descriptions.
 
 4. **Recommendation Generation**: Based on the calculated similarities, the algorithm generates a list of movie recommendations that match your preferences and interests.
 
 5. **Personalized Experience**: The more you interact with movies on our platform, the more personalized and accurate your recommendations become.
+
+#### TF-IDF Vectorization:
+
+**Term Frequency (TF):**
+- Term Frequency measures how often a term (word) appears in a document. It's calculated as the ratio of the number of times a term appears in a document to the total number of terms in that document.
+  $$\text{TF}(t, d) = \frac{\text{Number of times term \(t\) appears in document \(d\)}}{\text{Total number of terms in document \(d\)}}$$
+
+**Inverse Document Frequency (IDF):**
+- Inverse Document Frequency measures the importance of a term across a collection of documents. It's calculated as the logarithm of the ratio of the total number of documents to the number of documents containing the term, adjusted to prevent division by zero.
+  $$\text{IDF}(t, D) = \log\left(\frac{\text{Total number of documents in corpus \(D\)}}{\text{Number of documents containing term \(t\) in corpus \(D\)} + 1}\right)$$
+  - The addition of 1 in the denominator is to avoid division by zero.
+
+**TF-IDF:**
+- The TF-IDF score for a term in a document is the product of its Term Frequency and Inverse Document Frequency.
+  $$\text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)$$
+
+**Importance (Normalization):**
+- The TF-IDF scores are then often normalized to ensure that the values fall within a specific range, typically between 0 and 1. This normalization can involve dividing each TF-IDF score by the Euclidean norm of the entire vector.
+  $$\text{Normalized TF-IDF}(t, d, D) = \frac{\text{TF-IDF}(t, d, D)}{\sqrt{\sum_{i} (\text{TF-IDF}(t_i, d, D))^2}}$$
+
+In the context of your algorithm, the TF-IDF values are normalized to a scale between 0 and 1, representing the importance of each term in the movie descriptions relative to the entire dataset. Higher values indicate higher importance. This is a crucial step in capturing the significance of words in a document for similarity calculations, such as cosine similarity.
 
 #### Enhancing Your Movie Discovery
 
